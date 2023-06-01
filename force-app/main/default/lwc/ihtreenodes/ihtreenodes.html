@@ -1,0 +1,196 @@
+<template>
+   <div>
+<template if:false={treecontrolprintview}>
+   <div data-id="NodeContainer" class={nodeClass} id={nodecontainerid} style={node.Style} ondragleave={doDragLeave}>
+         <div class={iconClass} title={nodeexpandertip} onclick={toggle}>				
+            <lightning-icon class="slds-button__icon" size="xx-small" icon-name="utility:chevronright"></lightning-icon> 
+            <span class="slds-assistive-text">{nodeexpandertip}</span>    				
+         </div>
+         <div class="TreeNodeClickableContainer">     
+            <div data-divid="NodeOrdinal" data-id={node.Id} data-sortvalue={node.SortValue} class="NodeOrdinal slds-hide" data-nodeid={nodeids} 
+                  ondragover={doDragOver} ondragleave={doDragLeave} ondrop={doDrop}>
+               {advicelabeldroptosort}
+            </div>
+            
+               <template if:true={node.haschilds}>
+                     <lightning-button-icon icon-name="utility:settings"  alternative-text="Settings" title="Settings" data-id={node.Id} onclick={toggle2}></lightning-button-icon>
+               </template>
+            
+               <a ondragstart={doDragStart} ondragover={doDragOver} ondragleave={doDragLeave} ondrop={doDrop} data-id={node.Id} data-parentid={node.ParentId} href="#" onclick={treeNodeClick} 
+                  class="DropTarget" title={node.Title}>
+                  
+                  <!--<template if:true={node.haschilds}>
+                     <lightning-button-icon icon-name="utility:settings"  alternative-text="Settings" title="Settings" onclick={toggle2}></lightning-button-icon>
+                  </template>-->
+
+                  <template if:true={nodeiconsmall}>
+                     <i class={iclass1} aria-hidden="true" style={globalStyle}></i>
+                  </template>
+                     
+                  <template if:true={nodeiconlarge}>
+                     <span class="fa-stack fa-lg" style={globalStyle}>              
+                        <i class="fa fa-square-o fa-stack-2x" ></i>
+                        <i class={iclass2} aria-hidden="true" ></i>
+                     </span>
+                  </template>
+                  {node.Label}
+               </a>
+            </div>
+      <!-- 
+................................................
+IN-LINE LISTING TOOLS - where enabled
+................................................
+-->            
+				<template if:false={suppresslistingtools}>
+					
+               <!-- NOTE: Do not display tools if there's a configuration issue... -->
+              <div class={nodestyleclass}>
+
+                 <!-- Collapse inline listing tools to an ellipsis button above tool number threshold -->
+                 <div data-id="ListingToolsBlockExpanded_" class={collapselistingtools} >
+              
+                    <template for:each={listingtools} for:item="T">
+        
+                       <!-- 
+                       Hide ALL tools initially, pending checks in done rendering etc. that
+                       tool is suited to the data of the tree node (i.e., tool filter is appropriate).
+                       In order to make these checks possible, we mark (class) this blanket hide as follows:
+                       
+                          [Action code] TBit[Tool Bit]
+                       
+                       ... where [Tool Bit] is as follows:
+                          {!v.Node.ObjCode}	= 3 letter code for object whose row is represented in list item (tree node)
+                          {!v.Node.ToolBit}	= above code looked up in known object codes and translated to tool bit position (to check is on in tool filter binary)
+                       -->
+                       
+                       <span key={T.lt.Id} class='slds-hide' data-id="listingtools" data-actioncode={T.lt.iahelp__ActionCode__c} data-toolbit={node.ToolBit}>
+        
+                          <!--
+                          We need to show / hide tools based on certain contextual markers:
+                          E.g., if already bookmarked, show remove bmk etc...
+                          Note: onward toggling of "show next" tool etc covered in click handler: 
+                          all we need to do here is choose which tool to show initially...
+           
+                               SHOW TOOL IF:
+                                   Tool is NOT in Group ([NEXT] = 0) 
+                                   OR Row marks tool as current( Row marked with "active" marker for this tool)
+                                   OR Tool is Group default and no Row current marker ([PREV] = 0 AND Row has no "active" marking at all)
+                                   OR Tool is Group default in ALL cases ([PREV] = 0 AND tool's active marker = "Any" meta condition)
+                                -->
+        
+                          <span class={T.lt.iahelp__ToolClass__c} title={T.lt.iahelp__TipText__c} style={globalStyle}>
+                             <i onclick={treeNodeToolClick} data-nodeid={node.Id}
+                                data-actioncode={T.lt.iahelp__ActionCode__c}
+                                data-parentid={node.ParentId}
+                                class={T.lt.iahelp__IconClass__c} 
+                                aria-hidden="true" 
+                                title={T.lt.iahelp__TipText__c}>
+                             </i>
+                             <span data-nodeid={node.Id}
+                             data-actioncode={T.lt.iahelp__ActionCode__c} data-parentid={node.ParentId} class="fa-stack-1x" onclick={treeNodeToolClick}
+                             >
+                          
+                          <!-- 
+                          NOTE: Icon Label only used by the "Show Peer Trees" action to show number of peers:
+                          Other listing tools use icon content text, as standard.
+                           -->
+                          {T.lt.iahelp__IconContent__c}
+                          {node.IconLabel}
+                       </span>
+                                                       
+                             <span class="sr-only">
+                                {T.lt.iahelp__Label__c}
+                             </span>
+                          </span>
+                          
+                       </span>		<!-- "Blanket hide" span - pending tool bit / filter checking -->
+        
+                    </template>
+
+                 </div> <!-- END of div defining expandable / collapsible tools listing -->						
+              </div> <!-- END of div containing tools listing -->
+
+                 
+              <!-- Show Ellipsis button above tool number threshold -->
+              <div>
+                 <div class={ellipsisShowHide} style={globalStyle}>
+                 
+                    <span class="fa-stack IATool IAToolMaster">
+                        <i class="fa fa-square fa-stack-2x" aria-hidden="true"></i>
+                        <i data-nodeid={node.Id}
+                        data-actioncode='ToggleListingTools' data-parentid={node.Id} onclick={treeNodeToolClick}
+                             class="fa fa-ellipsis-h fa-stack-1x fa-inverse" 
+                             title={advicelabeltools} 
+                             aria-hidden="true"></i>
+                 
+                       <span class="sr-only">{advicelabeltools}</span>
+                 
+                    </span>				
+                 </div>
+              </div>
+
+           </template> 
+</div>
+   <template if:true={expanding}>
+      <div class="node">
+         <template for:each={node.items} for:item="n" for:index="indexvar">
+          <c-ihtreenodes componentid={componentid} node={n} treecontrol={treecontrol} expanded={n.Expanded} nodeiconstyle={nodeiconstyle}
+            displaydensity={displaydensity} nodeexpandertip={nodeexpandertip} listingtools={listingtools}
+            suppresslistingtools={suppresslistingtools} maxlistingtools={maxlistingtools} delimiter={delimiter}
+            level={levelnew} key={n.Id} supportsorder={supportsorder} listitems={listitems} nodeddallowed={nodeddallowed} 
+            globalsettings={globalsettings} rootnode={rootnode} advicelabeldroptosort = {advicelabeldroptosort} advicelabeltools = {advicelabeltools}></c-ihtreenodes>
+         </template>
+      </div>
+   </template>
+</template>
+<!-- 
+================================================
+PRINTABLE VIEW
+================================================
+-->          
+<template if:true={treecontrolprintview}>    
+
+   <!-- 
+   ................................................
+   TREE NODE
+   
+   ADD OPTIONS FOR:
+   - Optional bleed-through of topic custom style
+   - Optional hyperlink from title to topic 
+   - Global branding / header & footer
+   ................................................
+   --> 
+              <div class={printcls} style={styleClass}>
+                    
+               <div class="PrintTopic">
+               
+                   <div class="PrintLabel slds-text-heading_medium">
+                      {node.Label}
+                   </div>
+                   
+                   <div class="PrintTitle slds-text-heading_small">
+                      {node.Title}
+                   </div>
+                   
+                  <img class="PrintImage" src={node.Icon} ></img>		
+                  <lightning-formatted-rich-text value={node.IconTitle}></lightning-formatted-rich-text>	 				 			
+               </div>
+              </div>
+           
+   <!-- 
+   ................................................
+   THIS NODE'S CHILDREN - always expanded for print
+   ................................................
+   -->      
+                 
+            <div class="printNode">
+                 <template for:each={node.items} for:item="nod">
+                        <c-ihtreenodes treecontrolprintview={treecontrolprintview} node={nod} treecontrol={treecontrol} listingtools={listingtools}
+                        delimiter={delimiter} level={levelnew} key={nod.Id} listitems={listitems} treecontrollevelindentation={treecontrollevelindentation}
+                        advicelabeldroptosort = {advicelabeldroptosort}></c-ihtreenodes>
+                  </template>
+            </div>
+   
+</template>
+</div>        
+</template>

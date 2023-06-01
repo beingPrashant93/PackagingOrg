@@ -1,0 +1,449 @@
+<template>
+    <!-- 
+================================================
+Header
+================================================
+-->
+
+	<!-- Additional outer DIV layer required so we can style the next child in! -->
+<div data-id="outerCont" style={outerDivHt}>
+<div data-id="IHCardOutermostReachable" class="IHCardOuterContainer IHSuppressedUI " style={innerDivHt}
+onmouseover={reportRenderedHeight} onmouseout={hidePoweredBy}>
+    <div class="IHCardOuterContainer slds-card HelpList ui-resizable" style={cardheight} >
+    <div data-id="IHCardHeader" class={headerclass} style={globalStyle2}>	    			
+        <!-- Left set -->
+        <div class="slds-col slds-col_bump-right">
+            
+            <div class="slds-col">
+                
+               <div class="slds-media slds-media_center slds-has-flexi-truncate">
+                
+                    <!-- Icon (hidden if icon is blank)
+                    <div class={divcls1} style={globalStyle}>
+
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-square fa-stack-2x" aria-hidden="true"></i>
+                            <i class={iclass1} aria-hidden="true"></i>
+                        </span>
+                    </div> -->
+                        
+                    <!-- Title and Dirty Marker -->
+                    <div class={ddtools}>
+                        <span class="slds-text-heading_small">
+
+                            <p class='IHToolText' title={title}>
+                                <span class={isdirtyclass} style="margin-right: 10px; vertical-align: unset;">
+                                    {AdviceLabelModified}
+                                </span>                                    
+
+                                {title} 
+                            </p>
+                        </span>
+ <!-- 
+................................................
+Drop down tools
+................................................
+-->                       
+
+                        <button data-id="btnDropDown" class={ddtools2} >
+                            <span id="IAListViewTrigger" class="fa-stack fa-lg" style={styleddt}>
+                                <i class="fa fa-square-0 fa-stack-2x " aria-hidden="true"></i>
+                                <i class="fa fa-caret-down fa-stack-1x" aria-hidden="true"></i>
+                            </span>
+                            <span class="slds-assistive-text">{AdviceLabelModified}</span>
+                        </button> 
+                        
+                        <div data-id="toolsDropDown" id="IAListViewMenu" class="slds-hide slds-dropdown_left" style={styledtt1} >
+                            <ul class="dropdown__list slds-dropdown_length-10" role="menu">
+                                <template for:each={dropdowntools} for:item="T">
+                                    <li key={T.id} class="slds-dropdown__item slds-has-divider_top-space">
+                                        <a href="#" role="menuitem" onclick={menuItemClick}
+                                            title={T.iahelp__TipText__c}
+                                            data-type={T.iahelp__Type__c} data-actioncode={T.iahelp__ActionCode__c} data-displayorder={T.iahelp__DisplayOrder__c} 
+                            data-togglenext={T.iahelp__ToggleNext__c}
+                                             > 
+
+                                            <p class="slds-truncate">
+                                                &nbsp;{ T.iahelp__Label__c}
+                                            </p>
+                                        </a>
+                                    </li>
+                                </template>
+                            </ul>
+                        </div>
+                        </div>
+            </div>
+        </div>   
+
+            
+        </div>
+<!-- 
+................................................
+Header tools
+................................................
+-->
+        <!-- Right side -->
+        <div class="slds-col">
+            <div class="slds-float_right" style="width: max-content;">                    
+                <div class="IHLimitSpill">                  
+                        
+                       <!-- 
+                    Required to facilitate search ops on key down: this control is given
+                    focus momentarily to allow "change" iFocusPullern search text box value to occur
+                     -->                       
+                    <lightning-input data-id="FocusPuller" class="slds-hide"
+                            type="text" style="position: absolute; z-index: -1; height: 0px; width: 0px;"
+                    ></lightning-input>                                                     
+                    <template for:each={modifiedheadertools} for:item="T" for:index="ind">
+                        <span key={T.ht.Id}>                                                                   
+                            <!-- Header Tool Support Controls -->
+                         <!--   <template for:each={headertoolsupportcontrols} for:item="ST">-->
+                                <!-- 
+                                NB: There may be a number of header tool support controls:
+                                Against each header tool, we only want to show those for that tool
+                                i.e., those marked with its action code.
+                                
+                                Also, we respond to support tool type (element 2 in array of tool info):
+                                Effectively as of this release, type allows us to produce same action call 
+                                via different events (header button click or header support tool drop)
+
+                                AURA:IF is NOT reliable on repeat calls within iterations: alternative being used of necessity...
+                                 -->
+                            <div style="display: inline-block;"  class={T.class1}
+                                key={T.ht.Id}> 
+                                <input class={T.class2} data-id="HEADERSUPPORTTOOL" data-uniqueid={T.uniqueid}                                            
+                                    title={T.ht.iahelp__TipText__c} onload={compute} onkeyup={HSTTextKeyup} placeholder={T.ph}></input>
+                            </div>	
+           <!--                 <div style="display: inline-block;" class='slds-hide' key={T.ht.Id} >
+                                    
+                                    <lightning-input class='slds-hide' data-id="HEADERSUPPORTTOOL" title={T.ht.iahelp__TipText__c}>                               
+                                    </lightning-input>
+                            </div>
+                            <div style="display: inline-block;" class='slds-hide' key={T.ht.Id}  >
+                                    
+                                    <div data-id="HEADERSUPPORTTOOL"                                             
+                                            title={T.ht.iahelp__TipText__c}  
+                                            draggable="true"
+                                            class=''
+                                            >                                           
+                                    </div>
+                            </div> -->
+             <!--           </template>-->
+
+                            
+                            <!-- 
+                                Actual Header Tool clickable 
+                                SHOW TOOL IF:
+                                Tool is NOT in a toggle group ([NEXT] = 0)
+                                OR Row marks tool as current toggle ( Row marked with "active" marker for this tool)
+                                OR Tool is Group default in ALL cases ([PREV] = 0 AND tool's active marker = "Any" meta condition)
+                                OR Tool availability depends on COMPONENT - not row - and component matches conditions specified in active marker 
+                            --> 
+                            <span data-id="menuClickable" data-ids={T.id} class={T.ht.iahelp__ToolClass__c}                                          
+                                       style={globalStyle} >
+
+                                <i class="fa fa-circle fa-stack-2x" aria-hidden="true"></i>
+                                <i class={T.ht.iahelp__IconClass__c}
+                                    title={T.ht.iahelp__TipText__c} 
+                                    aria-hidden="true" ></i>
+                          
+                                <span class="sr-only">
+                                    {T.ht.iahelp__TipText__c}
+                                </span>
+                                <span class="fa-stack-1x" style="margin-top: -0.2em" 
+                                        title={T.ht.iahelp__TipText__c}
+                                        data-id={T.id2}
+                                        data-type={T.ht.iahelp__Type__c} data-actioncode={T.ht.iahelp__ActionCode__c} data-displayorder={T.ht.iahelp__DisplayOrder__c} 
+                                        data-togglenext={T.ht.iahelp__ToggleNext__c} 
+                                        onclick={menuItemClick}>
+                                    &nbsp;{T.ht.iahelp__IconContent__c}&nbsp;
+                                </span>                                        
+                            </span>      
+                        </span>    
+                    </template>                                
+                </div>                    
+                <!-- 
+................................................
+Ellipsis tools
+................................................
+-->
+<div style="display: inline-block">
+    <div class={ellipsistoolsClass} onclick={toggleellipsistools} >
+    
+        <span class="fa-stack fa-lg IATool HelpedUser" style={globalStyle}>
+            <i class="fa fa-square fa-stack-2x" aria-hidden="true"></i>
+            <i class="fa fa-bars fa-stack-1x fa-inverse" title={advicelabeltools} aria-hidden="true"></i>
+            <span class="sr-only">{advicelabeltools}</span>
+        </span>					
+
+        <div data-id="toolsEllipsis" style="z-index:1; background: transparent; box-shadow: none; margin-right: -10px;" class="slds-hide slds-dropdown_right slds-text-heading_label IATool HelpedUser Conditional HelpTopic OtherTools">
+            <ul class="dropdown__list" style={styleddt1} role="menu">
+                <template for:each={modifiedellipsistools} for:item="T" for:index="i">
+
+                    <!--
+                    As a card, we don't have a listing as such: however, a single listing item record can
+                    be added to pass information about the current record (on list or details).
+                    Our helper sends this to our metadata member at the time of processing clickables...
+
+                    SHOW TOOL IF:
+                        Tool is NOT in a toggle group ([NEXT] = 0)
+                        OR Row marks tool as current toggle ( Row marked with "active" marker for this tool)
+                        OR Tool is Group default in ALL cases ([PREV] = 0 AND tool's active marker = "Any" meta condition)
+                        OR Tool availability depends on COMPONENT - not row - and component matches conditions specified in active marker 
+                    --> 
+
+                    <li class={T.liclass} data-ids={T.id} 
+                            key={T.id}
+                            title={T.elp.iahelp__TipText__c}
+                            data-id="menuClickable">
+
+                        <a href="#" onclick={menuItemClick} class={T.elp.iahelp__HasDivider__c}
+                            role="menuitem" data-type={T.elp.iahelp__Type__c} data-actioncode={T.elp.iahelp__ActionCode__c}
+                            data-displayorder={T.elp.iahelp__DisplayOrder__c} 
+                            data-togglenext={T.elp.iahelp__ToggleNext__c}>
+                            
+                            <p class="slds-truncate" style={globalStyle}>
+                                <span style="text-align: center;" class={T.elp.iahelp__ToolClass__c} >
+                                    <i class="fa fa-square fa-stack-2x" aria-hidden="true"></i>
+                                    <i class={T.elp.iahelp__IconClass__c} aria-hidden="true"></i>
+                                    <span class="sr-only">{T.elp.iahelp__TipText__c}</span>
+                                    <span class="IconContentEllipsis">{T.elp.iahelp__IconContent__c}</span>                                                            
+                                </span>													
+                                &nbsp;{T.elp.iahelp__Label__c}
+                            </p>
+                        </a>
+                    </li>
+                    
+                </template>    
+            </ul>
+        </div>
+    </div>		    				
+            
+</div>
+        </div>  
+        </div>  
+        </div> 
+<div data-id="CardBodyContainer" class="SlotBody"	             
+style={heightcal}>
+  <!-- 
+................................................
+Body tools
+................................................
+--> 
+<template if:false={SuppressBodyTools}>
+    <div data-id="IHBodyTools" id="microTools" class="microTools ">
+                                    <template for:each={modifiedbodytools} for:item="T">	
+                       
+            <!-- 
+                                        SHOW TOOL IF:
+                                        Tool is NOT in a toggle group ([NEXT] = 0)
+                                        OR ROW marks tool as current toggle ( ROW marked with "active" marker for this tool)
+                                        OR Tool is Group default in ALL cases ([PREV] = 0 AND tool's active marker = "Any" meta condition)
+                                        OR Tool availability depends on COMPONENT - not row - and component matches conditions specified in active marker 
+                                        --> 
+                                        
+                                        <span data-id="menuClickable" class={T.class1} data-ids={T.id1} key={T.id1} >
+                    
+                                            <i class={T.class2} data-ids={T.id2} aria-hidden="true" 
+                                             title={T.bt.iahelp__TipText__c}
+                                             onclick={menuItemClick} data-type={T.bt.iahelp__Type__c} data-actioncode={T.bt.iahelp__ActionCode__c} 
+                                             data-displayorder={T.bt.iahelp__DisplayOrder__c} 
+                                             data-togglenext={T.bt.iahelp__ToggleNext__c}>
+                                             
+                                            </i>
+                                        </span>		
+                                   								
+                                    </template>
+    </div>
+</template>           	    				
+        <div data-id="HistoryContainer" class="HistoryContainer slds-hide" >
+            <ul class="iahelpIHList">
+                <template for:each={history} for:item="H">
+                    <li key={H.value} class="HelpListingItem" >
+                        <a data-id={H.value} onclick={historyClick} class="">
+                            {H.label}
+                        </a>
+                    </li>
+                </template>
+            </ul>
+        </div>
+<!-- 
+................................................
+"Working" visual cue - Default / simple spinner
+................................................
+-->
+<template if:true={hideBody}>
+    <div class="CardBody slds-align_absolute-center IASpinner "  style="overflow: hidden;" role="alert">
+        <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+        <span class="sr-only">{AdviceLabelWorking}</span>
+    </div>
+</template>
+
+<!-- 
+................................................
+"Working" visual cue - Topic viewer / details
+................................................
+-->
+<template if:true={cardTypeDetail}>
+    <div class="IHStencil" style="overflow: hidden;" role="alert">
+        <div class="section">
+            <span class="sr-only">{AdviceLabelWorking}</span>
+
+            <div class="row1">
+                <div class="text"></div>						
+            </div>
+            <div class="media row2"></div>
+
+            <template for:each={stencilrows} for:item="SR" for:index="idxR">			
+                <div class={SR} key={SR}>
+                    <div class="text"></div>
+                </div>
+            </template>
+        </div>
+    </div>
+
+</template>
+<!-- 
+................................................
+"Working" visual cue - Listing
+................................................
+-->
+<template if:true={cardTypeList}>		
+    <div class="IHStencil" style="overflow: hidden;" role="alert">
+        <div class="section">
+            <span class="sr-only">{AdviceLabelWorking}</span>
+        
+            <template for:each={stencilrows} for:item="SR" for:index="idxR">			
+                <div class={SR} key={SR}>
+                    <div class="text"></div>			
+                    <div class="text"></div>			
+                    <div class="text"></div>
+                    <hr/>			
+                </div>
+            </template>
+        </div>
+    </div>
+
+</template>
+
+<!-- 
+................................................
+"Working" visual cue - Auto-form
+................................................
+-->
+<template if:true={cardtypeaf}>
+    <div class="IHStencil" style="overflow: hidden;" role="alert">
+        <div class="section">
+            <span class="sr-only">{AdviceLabelWorking}</span>
+
+            <div class="TwoCol">
+                <template for:each={stencilrows} for:item="SR">			
+                    <div class={SR} key={SR}>
+                        <div class="text"></div>			
+                        <div class="text"></div>			
+                        <div class="text"></div>
+                        <hr/>			
+                    </div>
+                </template>
+            </div>
+        
+            <div class="TwoCol">
+                <template for:each={stencilrows} for:item="SR">			
+                    <div class={SR} key={SR}>
+                        <div class="text"></div>			
+                        <div class="text"></div>			
+                        <div class="text"></div>
+                        <hr/>			
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
+
+</template> 
+    <div if:false={isbusy} class="CardBody" >
+        <slot onslotchange={handleSlotChange}> </slot>      
+    </div>
+</div>
+        <!-- 
+================================================
+Footer and footer tools
+================================================
+-->	        <template if:false={cardsuppressfooter}>
+		            <div  data-id="IHCardFooter" class={footerclass} style="background: #ffffff;">
+		                <div class="slds-text-body_regular slds-text-align_right DiagsText">
+		                    {diags}       
+		                </div>
+	                    	              
+						<div class='IAFooterTools'>
+			                <template for:each={footertools} for:item="T">
+		
+								<span key={T.Id} class="fa-stack IATool IAFooterTool XIAToolInline" 
+										title={T.iahelp__TipText__c}                                             
+										>
+		
+									<a href="javascript:void(0);" onclick={menuItemClick} 
+		                                   	role="menuitem">
+		                                       
+										<span class="slds-truncate" style={globalStyle}>
+											<span style="text-align: center;" >
+												<i class="fa fa-square fa-stack-2x" aria-hidden="true"></i> 
+												<i class={T.iahelp__IconClass__c} aria-hidden="true"></i>
+												
+												<span class="sr-only">{T.iahelp__TipText__c}</span>
+												<span class="IconContentEllipsis">{T.iahelp__IconContent__c}</span>                                                            
+											</span>													
+										</span>
+									</a>
+								</span>
+								
+			                </template>
+						</div>	  
+                                  
+                        <div data-id="PoweredBy" class={footerlogoclass}                       
+                                style = {globalStyle2} onclick={gotoPoweredBy} title={ProductPoweredBy}>
+                               
+                      
+                        
+                        </div>
+                    
+                    </div>
+             <!--       <template if:true={calculateExpr}>
+                        <div data-id="CGContainer" class="slds-hide" style="">
+                            <c-ihcomponentgenerator data-id="theCG">
+                                
+                            </c-ihcomponentgenerator>
+                        </div>
+                    </template>-->
+                </template>
+                <template if:true={cardsuppressfooter}>
+                    <div data-id="IHCardFooter" 
+                        style={ihcardfooterstyle}>		            
+                       
+                        <div data-id="PoweredBy" class={footerlogoclass}                       
+                                    style = {globalStyle2} onclick={gotoPoweredBy} title={ProductPoweredBy}>
+														  <div  class="IHPBSuppressor" onmousemove={suppressPoweredBy} style="background-color:#13235B;"></div>
+                        </div>
+                        
+                  
+                    </div>
+                </template>
+        </div>
+        <div>
+            <slot name="footer" ></slot>
+        </div>
+    </div> 
+    </div>
+    <!-- 
+================================================
+Modal dialogue container & component
+================================================
+-->    
+	<!--<template if:false={SuppressCardUI}> -->
+	    <div data-id="ModalContainer" class="slds-hide">
+	        <c-ihdialogue data-id="theModal">	                 	
+	        </c-ihdialogue>
+	    </div>
+<!--	</template>  -->
+<!--</lightning-card>-->
+</template>

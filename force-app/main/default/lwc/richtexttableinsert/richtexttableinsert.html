@@ -1,0 +1,20 @@
+<template>   
+    <div data-id = "buttonBar" style="height : 50px">
+        <span class="fa-stack stack-size" onclick={handleClick} style="margin-right : 1rem" title={adviceswitchtextfields}>
+            <i class="fa fa-regular fa-square fa-stack-2x"></i>
+            <i class="fa fa-solid fa-code fa-stack-1x"></i>
+        </span>
+        <span class="fa-stack stack-size" onclick={insertTable} title = {advicetabletoinsert}>
+            <i class="fa fa-regular fa-square fa-stack-2x"></i>
+            <i class="fa fa-thin fa-table fa-stack-1x"></i>
+        </span>
+    </div>
+    <div style={textareastyle}>
+        <lightning-input-rich-text class='fullheightwidth' data-id = "richtextid" placeholder="" value={myVal} onchange={handleChange}>
+        </lightning-input-rich-text>
+ 
+
+        <textarea data-id="textareaid" class='fullheightwidth slds-hide' style="font-family : monospace;padding :1rem;">{textareaVal}            
+        </textarea>
+    </div>
+</template>

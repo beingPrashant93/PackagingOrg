@@ -1,0 +1,248 @@
+/* ============================================================================*/
+/* UX REVIEW REBRANDING */  
+/* ============================================================================*/  
+
+/* Header & header tool treatment */
+.slds-card__header * .fa-circle.fa-stack-2x 		{display: none;}
+.slds-card__header * .fa-square.fa-stack-2x 		{display: none;}
+.slds-card__header								{padding: 0.3rem 0.6rem 0.3rem !important; border-radius: 1rem 1rem 0 0 !important; margin: 0;}
+
+/* Card adjustments */
+.IHCardOuterContainer								{background: transparent;}
+
+/* Generated Sub-components */
+.IHGeneratedChild * .CardBodyContainer			{background: #ffffff !important;}
+
+/* Other */
+a p.slds-truncate									{margin: auto; text-transform: capitalize;}
+a p.slds-truncate span.fa-stack					{display: none;}
+.slds-text-heading_small							{color: #ffffff;}
+.slds-dropdown									{border: none; border-radius: 0;}
+.HelpList.ui-resizable							{background: transparent; border: none;}
+
+
+.slds-dropdown__item>a:hover						{background-color: unset !important;}
+.slds-dropdown__item>a:hover:before				{content: "|";}
+
+
+/* ============================================================================*/
+/* CARD OVERALL STRUCTURE */  
+/* ============================================================================*/  
+
+/* History listing */
+.HistoryContainer					{width: 75%; margin: auto; padding: 0 1rem;}
+/* 
+ Header 
+ .slds-card__header 				{padding: .75rem 1rem !important; margin: 0; border-radius: 0.3rem;} */
+
+/* Limit spillage / growth in header tools area */
+ .IHLimitSpill						{display: inline-block; width: max-content;}
+
+/* Drop down button and tools listing */
+ div.IHLUXDropDown 				{border: solid 1px #dddddd; border-radius: 5px; padding: 2px; margin-right: 7px;}
+ .IHCardDropDownButton 			{position: absolute; box-shadow: 0 0 0 #9faab5; margin-left: 10px; float: right; z-index: 1; background-color: #ffffff !important;}
+ .IHCardDropDownButton.btnActive 	{box-shadow: 0 0 2px #9faab5; }
+ /*#IAListViewMenu 					{left: auto;}*/
+ p.IHToolText 						{line-height: 1.875rem;	display: inline-block; height: 1.875rem; overflow: hidden;}
+
+/* Card outer container (including component padding removal for hidden implementations) */
+ .IHSuppressedUI					{margin-top: -0.75rem;}
+ .HasAuthorOverrides 				{font-style: italic;}
+
+/* Card Body */
+ .CardBodyContainer 				{width: 100%; margin: 0; padding: 0; overflow-x: hidden; overflow-y: auto;}
+ .CardBodyContainer.EditMode 		{overflow: hidden;}
+ .CardBody 						{width: 100%;}
+ .SlotBody     					{overflow:auto}
+ .NoDataMessage 					{width: 100%; height: 100%; font-size: 2em; color: #dddddd; text-align: center; padding: 20px; }
+
+/* Card Footer */
+ .DiagsText 						{display: inline-block; margin: 0.5rem;}
+ .DebugMode 						{color: red;}
+ .IAFooterTools					{float: right; padding: 2px;}
+ .IAFooterTool						{margin-left: 0.3rem;}
+
+ .IHCardFooterLogo					{width: 0px; height: 17px; margin: auto; border-radius: 0.4rem 0.4rem 0 0;
+	background-size: 100px; background-position-y: 5px; background-position-x: 20px; background-repeat: no-repeat;}
+
+.IHCardFooterLogoExpanded			{width: 140px !important;  }
+.IHCardFooterLogoMargin             {width: 140px !important; margin: -17px auto;}
+.IHCardFooterLogoLight			{background-image: url(/resource/iahelp__IHSupportMaterials/img/logos/IALogoLight.svg);}
+.IHCardFooterLogoDark				{background-image: url(/resource/iahelp__IHSupportMaterials/img/logos/IALogoDark.svg);}
+.IHCardFooterOffLogo				{position: relative; top: -17px;}
+.pointer                    {cursor: pointer;}
+
+/* ... including overrides for Winter 18-introduced styling glitches */
+ .slds-card__footer 				{padding: 0 0 0 0 !important; margin: 0;}
+
+/* jquery-ui / slds clean-up */
+ .ui-resizable-s					{bottom: 0px;}
+
+/* SLDS token emulation */
+ .DOLLAR-color-background-alt 		{background: white;}
+
+/* ============================================================================*/
+/* ACCORDIONS */  
+/* ============================================================================*/  
+ .ModeSpecificTools										{z-index: 6500; border: solid 0.1rem #dddbda; border-top: none; border-radius: 0 0 5px 5px;}
+ .IHToolPanel												{border-radius: 5px; background: #ccc; padding: 5px;}
+ .FixedMode												{position: fixed;}
+ .nodeExpanded 											{transform: rotate(90deg);}
+
+/* ============================================================================*/
+/* STENCILS AND SPINNERS */  
+/* ============================================================================*/  
+ .IASpinner						{color: #999; padding: 3rem;}
+
+/* .IHStencil 						{display: block; width: 100%; margin: .75rem; margin-top: 1.3rem; vertical-align: top;} */
+ .IHStencil .section				{display: block; clear: both;}
+ /*.IHStencil * .TwoCol				{display: inline-block; width: 50%; float: left;}*/
+ .IHStencil * hr					{width: calc(100% - 2.5rem); margin: 0.25rem; border-color: #f3f3f3;}
+ .IHStencil * .text				{display: block; clear: right; background-color: #eee; height: .6rem; border-radius: 100px; margin: 5px 0; width: 50%;}
+ .IHStencil * .text:first-child	{margin-top: 0; height: 1rem;}
+ .IHStencil * .text:nth-child(2)	{min-width: calc(100% - 2rem);}
+ .IHStencil * .media 				{display: block; height: 10rem; background-color: #eee; width: calc(100% - 2rem); margin: 5px 0;} 
+ .IHStencil * .row1 * 				{opacity: 0.9;}
+ .IHStencil * .row2 * 				{opacity: 0.8;}
+ .IHStencil * .row3 * 				{opacity: 0.7;}    
+ .IHStencil * .row4 * 				{opacity: 0.6;}    
+ .IHStencil * .row5 * 				{opacity: 0.5;}    
+ .IHStencil * .row6 * 				{opacity: 0.4;}    
+ .IHStencil * .row7 * 				{opacity: 0.3;}    
+ .IHStencil * .row8 * 				{opacity: 0.2;}
+ .IHStencil * .row9 * 				{opacity: 0.1;}    
+
+/* ============================================================================*/ 
+/* CARD IMPLEMENTATIONS */
+/* ============================================================================*/ 
+
+/* Diagnostics feedback */
+ .IHError							{color: red; font-style: italic;} 
+
+/* Recently modified content marking */
+ .IHCollateralUpdated 				{background: none !important; color: gold;}
+
+/* Help Enabling classes */
+ .IATool.New, .IATool.Add,.IATool.Clone,.IATool.Save,.IATool.Submit	{color: green;}
+ .IATool.Delete,.IATool.Cancel,.IATool.Remove	{color: red;}
+ .ToBeUnhelped * .IATool.Delete 	{color: white;}
+
+/* General data entry */
+ ::placeholder						{color: #CF5668; font-style: italic;}
+
+/* ============================================================================*/ 
+/* CONFIGURATION TOOLS */
+/* ============================================================================*/ 
+
+/* Icon and tool specialisation */        
+ .txtSearch,  .txtTreeSearch	{width: 125px !important;}
+ .ExtensionTool					{color: red;}
+ .BookmarkAdd     					{color: green !important;}
+ .BookmarkRemove     				{color: maroon !important;}
+ .IATool.Active.Dark				{color: lightgreen;}
+ .IATool.Inactive.Dark				{color: gray;}
+ .IATool					{cursor: pointer;}
+ .IconContentEllipsis 				{z-index: 1000; position: relative; font-weight: bold; font-size: 0.6em; top: -2px;}
+ span.WhiteText span.IconContentEllipsis {color: #ffffff;}
+
+/* For tools that are capable of responding to selections, e.g., on a listing */
+ .SelectionControlled.HasSelections {color: green !important;}
+
+/* ... including the "drop target" header tool (drag & drop text to search) */
+ span.DropSupport         			{display: none;}
+ input.DropSupport,  .Draggable     {font-size: 1.9em; text-align: center; width: 40px; color: rgb(22, 50, 92); 
+												border: none; border-radius: 6px; padding: 0 0 3px; margin: 3px 5px; }
+ .DropSearch     					{background-color: #ffee77; cursor: zoom-in;}
+ .DropNewTopic     				{background-color: #ffeeee; cursor: crosshair; }
+ .Draggable     					{background-color: #88ff88;font-size: 1.6em !important; z-index: 1000; cursor: move; }
+
+/* Classes for toggling tool visibility (e.g., collapse / expand list) where slds-hide is non-functional */
+ .toggleOn         				{display: block !important;}
+ .toggleOff        				{display: none !important;}
+
+/* Rotate FontAwesome icons */
+ .fa-rotate-45 					{-webkit-transform: rotate(45deg); -moz-transform: rotate(45deg); -ms-transform: rotate(45deg); -o-transform: rotate(45deg); transform: rotate(45deg);}
+
+/* [Temporary?] classes for header tool support controls */
+ .IHNarrow         				{float: left; width: 70%;}
+
+/* Marker for tools etc. that have yet to be fully implemented */
+ .WIP 								{border-right: dashed 1px red;}
+
+/* Body tools */
+ .microTools						{position: sticky; top: 0; width: 100%; text-align: center; z-index: 1;}
+		
+ .microTools span					{padding: 0 0.2rem; background: rgba(255,255,255,0.9);}
+ .microTool						{cursor: pointer; font-size: 1.0rem; color: #dddddd; padding-left: 0.4rem;}
+ .microTool:hover					{color: grey;}
+
+
+/* ============================================================================*/ 
+/* CALLOUTS */ 
+/* ============================================================================*/  
+.IsFixed 							{position: fixed;}
+.IsAbsolute 						{position: absolute;}
+.HelpCalloutContainer 				{z-index: +1; }
+
+/* Callout pending / waiting spinner */        
+ .IHTipPending 					{background: rgba(255,255,255,0.7) url(/resource/iahelp__IHResources/img/loading.gif) no-repeat center;}
+
+
+/* ============================================================================*/        
+/* LEGACY CUSTOM STYLE SUPPORT */        
+/* ============================================================================*/        
+
+.DemoRedAlert.IHHelpedSFElement   {color: red !important;}
+.DemoAmberAlert.IHHelpedSFElement {color: orange !important;}
+.DemoGreenAlert.IHHelpedSFElement {color: green !important;}
+
+.DemoHelpChanged.IHHelpedSFElement:before {content: "!!"; color: magenta; padding-right: 5px;}
+.DemoHelpChanged.IHHelpedSFElement:hover:before {content: "Help Updated!"; color: magenta; padding-right: 5px;}
+
+/* LUX Component support */
+ li.DemoRedAlert { background-color: #ffdddd;}
+tr.DemoRedAlert { background-color: #ffdddd;}
+div.DemoRedAlert { color: red;}div.DemoRedAlert.slds-tree__item {background-color: #ffdddd;}
+
+ li.DemoAmberAlert { background-color: #FFCC66;}
+ tr.DemoAmberAlert { background-color: #FFCC66;}
+ div.DemoAmberAlert { color: orange; }
+ div.DemoAmberAlert.slds-tree__item {background-color: #FFCC66;}
+
+ li.DemoGreenAlert { background-color: #66ff66;}
+ tr.DemoGreenAlert { background-color: #66ff66;}
+ div.DemoGreenAlert { color: green; }
+ div.DemoGreenAlert.slds-tree__item {background-color: #66ff66;}
+
+
+/* ============================================================================*/        
+/* LUX STYLES CONTENT BEYOND HERE... */        
+/* ============================================================================*/        
+
+/* LIGHTNING-ONLY STYLES - FOR LUX COMPONENTS ONLY */
+ tr.LUXRed,  li.LUXRed,  .slds-tree__item.LUXRed,  .LUXRed * .IHLUXDetailSummary,  .LUXRed.IHCustomStyled									{background-color: #ffdde1 !important;}	/*SLDS Pippin*/
+ tr.LUXAmber,  li.LUXAmber,  .slds-tree__item.LUXAmber,  .LUXAmber * .IHLUXDetailSummary,  .LUXAmber.IHCustomStyled							{background-color: #faffbd !important;}	/*SLDS Lemon Chiffon*/
+ tr.LUXGreen,  li.LUXGreen,  .slds-tree__item.LUXGreen,  .LUXGreen *.IHLUXDetailSummary,  .LUXGreen.IHCustomStyled							{background-color: #d9ffdf !important;}	/*SLDS Snowy mint*/
+ tr.LUXLightBlue,  li.LUXLightBlue,  .slds-tree__item.LUXLightBlue,  .LUXLightBlue * .IHLUXDetailSummary,  .LUXLightBlue.IHCustomStyled		{background-color: #d8edff !important;}	/*SLDS Patten Blue*/
+ tr.LUXDarkBlue,  li.LUXDarkBlue,  .slds-tree__item.LUXDarkBlue,  .LUXDarkBlue * .IHLUXDetailSummary,  .LUXDarkBlue.IHCustomStyled			{background-color: #16325c !important;}	/*SLDS Biscay*/
+ tr.LUXLightGrey,  li.LUXLightGrey,  .slds-tree__item.LUXLightGrey,  .LUXLightGrey * .IHLUXDetailSummary,  .LUXLightGrey.IHCustomStyled		{background-color: #f3f2f2 !important;}	/*SLDS Pattern Grey 3*/
+ tr.LUXDarkGrey,  li.LUXDarkGrey,  .slds-tree__item.LUXDarkGrey,  .LUXDarkGrey * .IHLUXDetailSummary,  .LUXDarkGrey.IHCustomStyled			{background-color: #706e6b !important;}	/*SLDS Pattern Grey 9*/
+
+/* For dark / "reverse" colours above, mostly set white text... */
+ tr.LUXDarkBlue * a,  li.LUXDarkBlue * a,  tr.LUXDarkBlue * p,  li.LUXDarkBlue * p, 
+	 tr.LUXDarkBlue * div:not([class*="ListingToolsBlock"]), 
+	 li.LUXDarkBlue * div:not([class*="ListingToolsBlock"]), 
+	 .slds-tree__item.LUXDarkBlue *,
+	 .LUXDarkBlue * .IHLUXDetailSummary,  .LUXDarkBlue * .IHLUXDetailName 		{color: #ffffff;}
+	
+ tr.LUXDarkGrey * a,  li.LUXDarkGrey * a,  tr.LUXDarkGrey * p,  li.LUXDarkGrey * p, 
+	 tr.LUXDarkGrey * div:not([class*="ListingToolsBlock"]), 
+	 li.LUXDarkGrey * div:not([class*="ListingToolsBlock"]),
+	 .slds-tree__item.LUXDarkGrey *, 
+	 .LUXDarkGrey * .IHLUXDetailSummary,  .LUXDarkGrey * .IHLUXDetailName		{color: #ffffff;}	
+
+/* ... but with the exception of ellipsis buttons for contracted tools area */
+ .LUXDarkBlue * .fa-ellipsis-h {color: rgb(62, 62, 60) !important;}	
+ .LUXDarkGrey * .fa-ellipsis-h {color: rgb(62, 62, 60) !important;}
+
+.IHPBSuppressor   {height: 1px; position: relative; top: 17px; width: 100%;}

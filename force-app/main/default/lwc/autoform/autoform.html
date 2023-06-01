@@ -1,0 +1,271 @@
+<template >
+  <c-ihcard1 cardsuppressheader={SuppressHeader} cardsuppressfooter={SuppressFooter} footertools={footertools} title={title} 
+  ellipsistools={ellipsistools} modifiedellipsistools={modifiedellipsistools} headertoolsupportcontrols={headertoolsupportcontrols} headertools={headertools} delimiter={delimiter}
+  globalsettings={globalsettings} cardcomponentid={ComponentId} advicelabeltools={advicelabeltools} dropdowntools={dropdowntools}
+  isbusy={isbusy} ihcardtype={ihcardAutoform} sobjectname={objname} height={Height} modifiedheadertools={modifiedheadertools} 
+  modifiedheadertoolsupportcontrols={modifiedheadertoolsupportcontrols} bodytools={bodytools} modifiedbodytools={modifiedbodytools} stencilrows={stencilrows} cardlistitems={cardlistitems} 
+  tipgenericedit={tipgenericedit} formfactorval={formfactorval} formfactorvalue={formfactorvalue} uxthemecolour1={uxthemecolour1} helprecordid={recordId_property} suppresspoweredby1={autoformpowerby} uxmenubackgroundcolour={uxmenubackgroundcolour}> 
+  <lightning-card title="Iframe" data-id="layoutVFCall" icon-name="custom:custom14" class="slds-hide">
+      <div>
+        <iframe style="width: 50vw;" scrolling="no" frameborder="0" src={url2}></iframe>
+      </div>
+    </lightning-card>
+    <!-- 
+================================================
+Mode-specific tools accordion
+================================================
+-->  
+    <lightning-card data-id="AutoForm">   
+      <div data-id="AFContainer" class="IHFullHeightAF">
+        <template if:false={mode}>
+         <div  data-id="sd" class={styleform}>
+            <lightning-record-view-form  record-id={recordId} object-api-name={objname} >
+            <template for:each={list} for:item="sec" for:index="indexvar"> 
+              <div class={styleDiv} key={sec.Section.label} > 
+                <div class="slds-section  slds-is-open full forcePageBlockSection forcePageBlockSectionEdit">
+                  <div if:true={sec.HasRows}>
+                      <template if:true={sec.Section.detailHeading}>
+                      <h3 id={indexvar} class="slds-section__title slds-theme_shade primaryPaletteBorder IHPaddedSection" onclick={toggleFormSection}>
+                        <div if:true={sec.Expanded}>
+                          <lightning-icon id={indexvar} class="nodeExpanded slds-button__icon slds-m-right_x-small" icon-name="utility:chevronright" size="xx-small"></lightning-icon>
+                        </div>
+                        <div if:false={sec.Expanded}>
+                          <lightning-icon id={indexvar} class="slds-button__icon slds-m-right_x-small" icon-name="utility:chevronright" size="xx-small"></lightning-icon>
+                        </div>
+                        {sec.Section.label} 
+                      </h3>
+                    </template>
+                      <template if:true={sec.Expanded}>
+                        <div class="slds-section__content section__content slds-p-top_none">
+                          <div class="slds-form">
+                      <template for:each={sec.Rows} for:item="R"> 
+                        <div class="slds-col" key={R.Id} > 
+                          <div class="slds-grid full forcePageBlockSectionRow IHPaddedRow">      
+                        <template for:each={R.Items} for:item="I"> 
+                         
+                              <template if:true={I.class1}>
+                              <!--  I.originalitem.Item - {I.originalitem.Item}   -->                       
+                               <div key={I.originalitem.Item.field} class={sec.ItemClass}>
+                                  <div data-id={I.originalitem.Item.field} data-help={I.originalitem.HelpAvailable} data-name="FieldContainer" data-componentid={ComponentId}
+                                  onclick={formFieldAreaClick} class={I.originalitem.StyleClass}>
+
+                                   <!-- Modified-->
+                                   <!-- <template if:true={formfactmobile}> -->
+                                    <!-- <template if:true={formfactmobile}> -->
+                                    <!-- <template if:false={I.colcount}>   -->
+                                        <!-- <div key={R.Id}>m
+                                          <iframe  data-id="AutoFormFrame" id={R.Id} data-field={I.originalitem.Item.field} class="slds-hide" style="width: 100%;" scrolling="no" frameborder="0" onmouseout={tipMouseOut} onload={hideTipBusy}></iframe>
+                                        </div> -->
+                           <!-- </template>   -->
+                                      <!-- </template>  -->
+                                   
+
+                                    
+
+                                      
+                             
+                                    <div class="slds-grid">
+                                      <div class="slds-col slds-size_1-of-12" style="width: 2rem;" key={I.originalitem.Item.field}>
+                                        <div if:true={I.originalitem.HelpAvailable} class="logo" style={mtool} title={OpToolTip} id={I.originalitem.Item.field} onclick={requestHelp}>
+                                          <i class={OpModeIconClass} aria-hidden="true"></i>
+                                        </div>
+                                      </div > 
+                                      <div if:true={I.originalitem.Item.field} id={I.originalitem.Item.field} data-id="CalloutContainer" class="I.originalitem.ItemClass" style="width: calc(100% - 3.4rem);" key={I.originalitem.Item.field}>
+                                        <div class="slds-col IHColField IHUnderlined">                                    
+                                                <lightning-output-field field-name={I.originalitem.Item.field}></lightning-output-field>       
+                                        <template if:true={I.createdbyidcheck}>
+                                          <div class="IHFieldPart2">
+                                                  <lightning-output-field field-name='CreatedDate' variant='label-hidden' ></lightning-output-field>
+                                          </div>
+                                        </template>																							
+                                        <template if:true={I.modifiedbyidcheck}>
+                                          <div class="IHFieldPart2">
+                                                  <lightning-output-field field-name='LastModifiedDate' variant='label-hidden'></lightning-output-field>	 										</div>												
+                                          <!--</div>-->
+                                        </template>
+                                      </div>
+                                      </div>
+                                                                          
+                                   <div if:true={I.originalitem.Item.customLink} id={I.originalitem.Item.field} data-id="CalloutContainer" class={I.originalitem.ItemClass} key={I.originalitem.Item.field}>                                    
+                                        <c-ihafcustomsection communityroot={communityroot}
+                                        objname={objname}	
+                                        rid={recordId}	
+                                        lookupsectionheading={sec.Section.label}
+                                        lookupitemlabel ={I.originalitem.Item.customLink}
+                                        lookupitemcomponenttype ="CustomLink"></c-ihafcustomsection>
+                                    </div> 
+                                    <div if:true={I.originalitem.Item.page_x} id={I.originalitem.Item.field} data-id="CalloutContainer" class={I.originalitem.ItemClass} key={I.originalitem.Item.field}>                                    
+                                      <c-ihafcustomsection communityroot={communityroot}
+                                        objname={objname}	
+                                        rid={recordId}	
+                                        lookupsectionheading={sec.Section.label}
+                                        lookupitemlabel ={I.originalitem.Item.page_x}
+                                        lookupitemcomponenttype ="VisualforcePage"></c-ihafcustomsection>
+                                    </div>
+
+                                    <div if:true={I.originalitem.IsEditableLocally} id={I.originalitem.Item.field} key={I.originalitem.Item.field} class="slds-col slds-size_1-of-12" style="width: 1.5rem;" onclick={gotoEditMode}>                            
+                                      <div if:false={I.originalitem.SpecialReadOnly} class="inlineEditTool">
+                                        <i class="fa fa-pencil" title ={tipgenericedit} aria-hidden="true"></i>	
+                                      </div>
+                                    </div> 
+                                  </div>														
+                                  <div if:true={I.originalitem.HelpAvailable} class={modecls}>
+                                    {ColumnLabelDeleteAssociatedTopic}<br/>
+                                    <lightning-input type="checkbox" data-id={I.originalitem.Item.field} data-name="_ChkDeleteTopic" ></lightning-input>
+                                  </div>																
+                                          
+                                  <div if:false={I.originalitem.HelpAvailable} class={modecls} >
+                                    {ColumnLabelUseExistingTopic}<br/>
+                                    <lightning-input onclick={nullifyClick} type="text" data-id={I.originalitem.Item.field} data-name="_txtExistingTopic"  class="slds-input" ></lightning-input>
+                                  </div>
+                                </div> 
+                              </div> 
+                              <!--dd-->
+                              <template if:true={formfactmobile}> 
+                              <template if:true={I.colcount}> 
+                                <div key={R.Id}>
+                                  <iframe  data-id="AutoFormFrame" id={R.Id} data-field={I.originalitem.Item.field} class="slds-hide" style="width: 100%;" scrolling="no" frameborder="0" onmouseout={tipMouseOut} onload={hideTipBusy}></iframe>
+                                </div>
+                               </template>
+                              </template>
+                                </template>                
+                              </template> 
+                            </div>  
+                          </div>
+
+                          <template if:true={formfactmobile}> 
+                            <template for:each={R.Items} for:item="I">  
+                           <template if:false={I.colcount}>
+                              <div key={R.Id}>
+                                <iframe  data-id="AutoFormFrame" id={R.Id} data-field={I.originalitem.Item.field} class="slds-hide" style="width: 100%;" scrolling="no" frameborder="0" onmouseout={tipMouseOut} onload={hideTipBusy}></iframe>
+                              </div>
+                            </template>
+                             </template>
+                            </template>  
+
+                          <!-- Modified-->
+                        <template if:false={formfactmobile}>
+                          <template for:each={R.Items} for:item="I">
+                      
+                              <div key={R.Id}>
+                                <iframe  data-id="AutoFormFrame" id={R.Id} data-field={I.originalitem.Item.field} class="slds-hide" style="width: 100%;" scrolling="no" frameborder="0" onmouseout={tipMouseOut} onload={hideTipBusy}></iframe>
+                              </div>
+                  
+                            </template>
+                        </template> 
+
+                        </template> 
+                      </div>
+                    </div>
+                      </template> 
+                  </div>
+                </div>
+              </div> 
+                
+              </template> 
+            </lightning-record-view-form>
+       </div> 
+               
+        </template>
+      </div>
+  <!---------------------------------------------------Edit mode ---------------------------------------------------------------->
+  <div  data-id="edit" class="slds-hide">
+    <lightning-record-edit-form  record-id={recordId} object-api-name={objname} 
+                              onsuccess={handleSuccess} onsubmit={handleSubmit}> 
+    <template for:each={list} for:item="sec" for:index="indexvar"> 
+      <div class="slds-card" key={sec.Section.label} > 
+        <div if:true={sec.HasRows}>
+            <template if:true={sec.Section.detailHeading}>
+                <h3 id={indexvar} class="slds-section__title slds-theme_shade primaryPaletteBorder IHPaddedSection" onclick={toggleFormSection}>
+                  <div if:true={sec.Expanded}>
+                    <lightning-icon id={indexvar} class="nodeExpanded slds-button__icon slds-m-right_x-small" icon-name="utility:chevronright" size="xx-small"></lightning-icon>
+                  </div>
+                  <div if:false={sec.Expanded}>
+                    <lightning-icon id={indexvar} class="slds-button__icon slds-m-right_x-small" icon-name="utility:chevronright" size="xx-small"></lightning-icon>
+                  </div>
+                  {sec.Section.label}
+                </h3>
+            </template>
+          <template if:true={sec.Expanded}>
+              <template for:each={sec.Rows} for:item="R"> 
+                <div class="slds-grid slds-wrap" key={R.Id} >        
+                 <template for:each={R.Items} for:item="I">
+                      <template if:true={I.class1}>
+                        <div class={sec.ItemClass} key={I.originalitem.Item.field}>
+                        <div class={I.originalitem.StyleClass} key={I.originalitem.Item.field} data-id={I.originalitem.Item.field} data-name="FieldContainer" data-componentid={ComponentId}
+                        onclick={formFieldAreaClick}>
+                            <div class="slds-grid">
+                              <div class="slds-col slds-size_1-of-12" style="width: 2rem;" key={I.originalitem.Item.field}>
+                                <div if:true={I.originalitem.HelpAvailable} class="logo" style={mtool} id={I.originalitem.Item.field} title={OpToolTip} onclick={requestHelp}>
+                                  <i class={OpModeIconClass} aria-hidden="true"></i>
+                              </div>
+                              </div> 
+                              <div if:true={I.originalitem.IsEditable} data-id="EditContainer" id={I.originalitem.Item.field}  class="slds-col slds-size_11-of-12" style="width: calc(100% - 3.4rem);" key={I.originalitem.Item.field}>        
+                                <lightning-input-field tabindex="0" data-id="inputfield" id={I.originalitem.Item.field} field-name={I.originalitem.Item.field} onchange={setDirty}></lightning-input-field>                           
+                              </div>
+                              <div if:false={I.originalitem.IsEditable} data-id="EditContainer" id={I.originalitem.Item.field}  class="slds-col slds-size_11-of-12" key={I.originalitem.Item.field}>        
+                                <lightning-output-field tabindex="0" data-id="inputfield" id={I.originalitem.Item.field} field-name={I.originalitem.Item.field}></lightning-output-field>                           
+                              </div>
+                              <div if:true={I.originalitem.Item.customLink} id={I.originalitem.Item.field} data-id="CalloutContainer" class={I.originalitem.ItemClass} key={I.originalitem.Item.field}>                                    
+                                <c-ihafcustomsection communityroot={communityroot}
+                                objname={objname}	
+                                rid={recordId}	
+                                lookupsectionheading={sec.Section.label}
+                                lookupitemlabel ={I.originalitem.Item.customLink}
+                                lookupitemcomponenttype ="CustomLink"></c-ihafcustomsection>
+                            </div> 
+                            <div if:true={I.originalitem.Item.page_x} id={I.originalitem.Item.field} data-id="CalloutContainer" class={I.originalitem.ItemClass} key={I.originalitem.Item.field}>
+                              <c-ihafcustomsection communityroot={communityroot}
+                                objname={objname}	
+                                rid={recordId}	
+                                lookupsectionheading={sec.Section.label}
+                                lookupitemlabel ={I.originalitem.Item.page_x}
+                                lookupitemcomponenttype ="VisualforcePage"></c-ihafcustomsection>
+                            </div> 
+                            </div>
+                          </div>
+                      </div>
+                      </template>
+                    </template>
+                  </div>
+                  <div key={R.Id}>
+                      <iframe  data-id="AutoFormFrame1" id={R.Id} class="slds-hide" style="width: 100%;" scrolling="no" frameborder="0" onmouseout={tipMouseOut} onload={hideTipBusy}></iframe>
+                  </div>
+                </template>
+              </template> 
+         </div>           
+      </div>  
+      </template> 
+      <!-- Actual button bar container styled conditionally based on need to float or not -->
+
+    <div data-id="ButtonBarMarker" class="ButtonBarMarker" ></div>
+    <div id="ButtonBarContainer" class={ButtonBarContainer}>
+    <div data-id="ButtonBar" class={ButtonBarclass} style={ButtonBarstyle}>
+
+    <div class="ButtonContainer slds-align_absolute-center" >
+
+    <!-- Data modification ops are only allowed when operational mode (as opposed to data mode) = View -->
+    <lightning-button class="slds-m-around_xx-small" type="submit" label={ButtonSave} title={saveBtnTitle} variant="brand" > </lightning-button>
+    <lightning-button class="slds-m-around_xx-small" label={ButtonCancel} title={TipGenericCancel} onclick={doCancel}> </lightning-button>
+    </div>
+    </div>
+
+    <div data-id="UtilityBarShim" class={UtilityBarShim1} style={UtilityBarShimStyle}></div>
+    </div>
+
+    </lightning-record-edit-form>
+    </div>        
+                
+    <!--
+================================================
+Help callout facility (moves around DOM in use)
+================================================
+All non-VF callout types (regardless of embedded or full-screen styles) -->
+<div data-id="TVContainer" class="xTVContainerActive slds-hide">    
+    <c-ihdetail data-id="TopicViewer" height="-1" toolcontext="CardAutoForm_TopicViewer" helprecordid ={recordid_property} suppressheader="false" suppressfooter="true" issubcomponentd="true">
+    </c-ihdetail>
+</div>
+    </lightning-card>
+  <span slot="footer" ></span>
+  </c-ihcard1>
+  </template>

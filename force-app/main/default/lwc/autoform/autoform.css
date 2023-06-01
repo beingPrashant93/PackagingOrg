@@ -1,0 +1,56 @@
+.logo{
+    width:10%;
+    height:10%;
+    cursor:pointer;
+    }
+ .inlineEditTool{
+     display: inline-block; width: 0.875rem; color: #eeeeee;}
+ .inlineEditTool:hover{
+     color: #5050a0;}
+.slds-section__title{
+    cursor:pointer;  
+}
+.nodeExpanded {transform: rotate(90deg);}
+.Dirty_true	{background: #faffbd;}
+.IHColField												{width: calc(100% - 2rem);}
+.IHTipPending 					{background: rgba(255,255,255,0.7) url(/resource/iahelp__IHResources/img/loading.gif) no-repeat center;}
+.IHClickHelper											{cursor: pointer; margin: 0 auto; color: #004080;}    
+
+/* Help enabling furniture */
+.HETools													{background-color: #dddbda; display: none;}
+.ToBeHelped .HETools									{display: block; background-color: #CCFF66 !important; color: #008000 ;font-style: italic;}
+.ToBeUnhelped .HETools									{display: block; background-color: #FF0000 !important;color: white !important;font-style: italic;}
+.HelpEnable												{border: solid 3px yellow;}
+.HelpableSFElement                                      {border: solid 3px yellow;}  
+
+/* Adjustments to classic mode styles */
+.IHHelpRecon 												{box-shadow: none;}
+.IHHelpRecon.IHHelpedSFElement							{box-shadow: 0 0 2px 2px #FFCC66 inset;}
+.IHHelpStats												{background: none;}
+
+/* Form overall structure */
+.IHFullHeightAF											{height: 100%; background: #ffffff;}
+.IHAutoForm												{height: 100%; width: 100%;}
+.IHAutoForm form											{height: CALC(100% - 3.5rem);}
+.FormArea													{height: 100%; overflow-y: auto; overflow-x: hidden;}
+/*.IHPaddedRow												{}*/
+.slds-section__title										{cursor: pointer}
+.slds-section__title:hover								{background: rgb(238, 241, 246);}
+.IHPaddedSection											{margin-top: 0.5rem; margin-bottom: 0.5rem;}
+/*.IHColTool												{}*/
+.IHColField												{width: calc(100% - 2rem);}
+.IHHelpedSFElement										{cursor: unset !important;}
+.IHUnderlined												{border-bottom: solid 1px rgb(221, 219, 218);}
+.ButtonBarMarker											{height: 0px; width: 100%;}
+.ButtonBarContainerFloating								{width: 100%; height: 3.5rem;}
+.ButtonBarContainerFixed									{width: 100%; height: auto;}
+.ButtonBarFloating										{position: fixed; opacity: 0.9; z-index: 4;}
+.ButtonBarFixed											{position: flex; width: 100%;}
+.IHFieldPart2                                           {position: relative; top: -2rem; padding-left: 66%; display: inline-block; width: calc(100% - 0.875rem)!important; white-space: nowrap}
+.col1                                                   {width: 2rem}
+.col2                                                   {width: calc(100% -3.4rem);}
+.col3                                                   {width: 1.5rem;}
+.IHDDFFailElement                                       {border: 3px dotted blue !important;}
+.HelpableSFElement                            {box-shadow: 0 0 2px 2px #ffff00 inset; border-radius: 4px !important;}
+.TVContainerActive										{width: 100%; height: 100%;}
+.xTVContainerActive                                  {height: 450px;}

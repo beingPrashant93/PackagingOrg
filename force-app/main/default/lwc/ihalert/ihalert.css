@@ -1,0 +1,51 @@
+.DialogueContainer {
+	xbackground-color: #e1ecff;
+	background-color: #f0f9fd;
+	color: #13235b;
+	padding: 1rem;
+	border-radius: 0.5rem;
+	text-align: center;
+}
+
+.DialogueTitle		{
+	font-size: 1.3rem;
+	font-weight: bold;
+	margin-bottom: 0.5rem;
+}
+
+.DialogueMessage		{
+	margin-bottom: 2rem;
+}
+
+.DialogueImage		{
+	width: 90%; 
+    margin: 1rem auto;
+    height: 100px; 
+    background-repeat: no-repeat;
+    background-size: contain;
+	background-position-x: center;
+}
+
+.DialogueButton		{
+	color: #ffffff;
+	background-color: #009eed;
+	padding: 0.25rem;
+	border-radius: 0.3rem;
+	cursor: pointer;
+	margin-right: 0.5rem;
+	display: inline;
+}
+
+.CompGenerator		{
+    margin-bottom: 2rem;
+}
+
+.DialogueImage2		{
+	width: 90%; 
+    margin: 1rem auto;
+    xheight: 300px;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: contain;
+	background-position-x: center;
+}

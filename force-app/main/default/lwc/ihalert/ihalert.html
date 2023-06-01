@@ -1,0 +1,103 @@
+<template>
+    
+    <div class="DialogueContainer" style="height: 100%;">
+
+        <div class="slds-grid slds-gutters">
+            <template if:true={columnstyle}><!--if statment-->
+                <div class="slds-col slds-size_1-of-1">
+
+                    <div class="DialogueImage" style={styleimg2}>
+                        <div class="DialogueTitle">
+                            {alerttitle}
+                        </div>
+                        <div class="DialogueMessage">
+						    {message}
+					    </div>
+
+                    <!--if statment-->
+                    <template if:true={compif}>
+                        <div class="CompGenerator">
+                            <c-ihcomponentgenerator data-id="CGIHDetail" parent=alertthis>
+                            </c-ihcomponentgenerator>
+                        </div>
+                    </template>
+
+                    <div class="ButtonGroup">
+                        <template for:each={modifiedbodytoolsalert} for:item="T" >   
+                            <div key={T.bt.id} class="DialogueButton"  onclick={menuItemClick} title={T.bt.iahelp__TipText__c} data-actioncode={T.bt.iahelp__ActionCode__c}>    
+                                <template if:true={T.GenericOK}>
+                                
+                                     {TipGenericOK}
+
+                                </template>
+                                <template if:false={T.GenericOK}>
+                                
+                                    {T.bt.iahelp__Label__c} 
+
+                                </template>
+
+                            </div>
+
+                        </template>
+                    </div>
+                </div>
+            </div><!--one col-->
+          </template>
+
+
+        <template if:true={columntwostyle}><!--if statment two col-->
+            <div class="slds-col slds-size_1-of-2">
+
+                <div class="DialogueTitle">
+                    {alerttitle}
+                </div>
+
+                <div class="DialogueMessage">
+                     {message}
+                </div>
+                <div class="CompGenerator">
+                    <template if:true={compif}>
+                         <c-ihcomponentgenerator data-id="CGIHDetail" parent=alertthis>
+                         </c-ihcomponentgenerator>
+                    </template>
+                </div><!--CompGenerator-->
+                <div class="ButtonGroup">
+                    <template for:each={modifiedbodytoolsalert} for:item="T" > 
+                    <div  key={T.bt.id} class="DialogueButton" title={T.bt.iahelp__TipText__c} data-actioncode={T.bt.iahelp__ActionCode__c} onclick={menuItemClick}>
+                         
+
+                                <template if:true={T.THBTT}>
+
+                                        <template if:true={T.ToggleHistory}>
+                                               {togglehistory}
+
+                                        </template>
+                                        <template if:false={T.ToggleHistory}>
+                                                 {backtotree} 
+                                        </template>
+                                </template>
+                        <template if:false={T.THBTT}>
+                                    <template if:true={T.GenericOK}>
+                                     &nbsp;&nbsp;  {TipGenericOK}   &nbsp;&nbsp;
+                                    </template>
+                                    <template if:false={T.GenericOK}>
+                                        {T.bt.iahelp__Label__c}
+                                    </template>
+                                    
+                                </template>
+                           
+                    </div><!--DialogueButton-->
+                </template>
+                </div><!--ButtonGroup-->
+
+            </div> <!--two col-->
+
+            <div class="slds-col slds-size_1-of-2">
+                <div class="DialogueImage2" style={styleimg2}></div>				
+            </div>
+        </template><!--end of if statment two col-->
+            
+        </div>
+    </div>
+
+</template>

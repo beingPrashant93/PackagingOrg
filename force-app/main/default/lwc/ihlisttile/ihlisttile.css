@@ -1,0 +1,73 @@
+/*CSS file*/
+
+.TileContainer			    {cursor: pointer;}
+.TileContainer:hover		{background: #dddddd;}
+
+.TileContainerSmallest	    {padding: 0.5rem; border-radius: 0.4rem; width: 150px;}
+.TileContainerSmall 		{padding: 0.7rem; border-radius: 0.5rem; width: 250px;}
+.TileContainerMedium 		{padding: 1.0rem; border-radius: 0.6rem; width: 300px;}
+.TileContainerLarge 		{padding: 1.2rem; border-radius: 0.7rem; width: 400px;}
+
+.TileContainerSmallest .TileArticle	    {border-radius: 0.3rem;}
+.TileContainerSmall .TileArticle		{border-radius: 0.4rem;}
+.TileContainerMedium .TileArticle		{border-radius: 0.5rem;}
+.TileContainerLarge .TileArticle		{border-radius: 0.6rem;}
+
+.TileArticle				{overflow: hidden;}
+
+.TileText					{padding: 0 0.3rem;	overflow: hidden;}
+
+.SummarySmallest			{font-size: 0.7rem; height: 2.9rem; line-height: 0.8rem; margin: 0.5rem;}
+.SummarySmall				{font-size: 1.1rem; height: 5rem; line-height: 1.3rem; margin: 0.8rem;}
+.SummaryMedium			    {font-size: 1.4rem; height: 5.5rem; line-height: 1.6rem; margin: 0.8rem;}
+.SummaryLarge				{font-size: 2.0rem; height: 7.5rem; line-height: 2.1rem; margin:1rem}
+
+.SummarynotESmallest			{font-size: 0.7rem; height: 2.9rem; line-height: 0.8rem; }
+.SummarynotESmall				{font-size: 1.1rem; height: 5rem; line-height: 1.3rem; }
+.SummarynotEMedium			    {font-size: 1.4rem; height: 5.5rem; line-height: 1.6rem; }
+.SummarynotELarge				{font-size: 2.0rem; height: 7.5rem; line-height: 2.1rem; }
+
+.DescriptionSmallest		{font-size: 0.5rem; height: 3.9rem; line-height: 0.7rem; margin-top: 0.6rem; overflow-y: scroll;}
+.DescriptionSmall			{font-size: 0.8rem; height: 5.3rem; line-height: 1.0rem; margin-top: 1.7rem; overflow-y: scroll;}
+.DescriptionMedium		    {font-size: 1.0rem; height: 6.2rem; line-height: 1.4rem; margin-top: 2.0rem; overflow-y: scroll;}
+.DescriptionLarge			{font-size: 1.2rem; height: 8.2rem; line-height: 1.3rem; margin-top: 3.5rem;  overflow-y: scroll;}
+
+.DescriptionLarge::-webkit-scrollbar {
+  display: none;
+}
+.DescriptionMedium::-webkit-scrollbar {
+  display: none;
+}
+.DescriptionSmall::-webkit-scrollbar {
+  display: none;
+}
+.DescriptionSmallest::-webkit-scrollbar {
+  display: none;
+}
+
+.IconSizeSmallest     {margin-left: 7rem;}
+.IconSizeSmall        {margin-left: 12rem; margin-top: 0.5rem;} 
+.IconSizeMedium       {margin-left: 14rem; margin-top: 0.6rem;}
+.IconSizeLarge        {margin-left: 19rem;}
+/* Our copy of FA seems to lack this? */
+.textclassSmallest    {margin-top: 0.5rem; text-align: center;}
+.textclassSmall    {margin-top: 0.9rem; text-align: center;}
+.textclassMedium    {margin-top: 1rem; text-align: center;}
+.textclassLarge       {margin-top: 1.5rem; text-align: center;}
+
+.fa-7x					    {font-size: 7rem;}
+
+.container{
+    display:grid;
+    grid-template-rows:33% 68%;
+    grid-template-areas:
+        "main2 "
+        "main"
+      ;
+    }
+main2{
+    grid-area:main2;
+  }
+main{
+    grid-area:main;
+  }

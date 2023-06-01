@@ -1,0 +1,32 @@
+.NoDataMessage 					{width: 100%; height: 100%; font-size: 2em; color: #dddddd; text-align: center; padding: 20px; }
+/* General */
+.Centred 							{text-align: center;}
+.VoteOption						{display: inline-block; padding-top: 1em;}
+
+/* Remove underline from summary text in read mode: link is required for D&D ops, but this is not a 'real' hyperlink... */
+.IHLUXDetailSummary a				{text-decoration: none;}
+.IHLUXDetailSummary a:hover		{text-decoration: none;}
+
+/* Highlight modified / dirty status */ 
+.isDirty                          {background-color: #faffbd;}
+.isDirty * .Parameter.input 		{background-color: #faffbd;}
+
+/* Voting related options */
+/*.LastVote {}*/
+
+/* Edit Mode */ 
+.TabPanel							{background-color: rgba(255, 255, 255, 0.5); height: Calc(100% - 40px);}
+.TabFooter 						{background-color: #eee;}
+.TabFooterTools 					{background-color: silver;}
+.VideoEdit 						{position: absolute; top: 0; right: 0; height: 100%; z-index: -1;}
+.RichTextEdit 					{height: 200px;} /* needs to be calculated from CardBody - (slds-tabs--default__nav + EditTools) */
+
+/* Edit Parameters */
+.nodeExpanded 					{transform: rotate(90deg);}
+.ParameterEditMenu 				{padding: 0.3rem; background: #eeeeee;}
+
+.DropTargetActive 				{background-color: #ffffcc !important;}
+.DropTargetUnavailable 			{background-color: #ffcccc !important;}
+.IATool                          {cursor: pointer;}
+.BookmarkAdd     					{color: green !important;}
+.IHCollateralUpdated 				{background: none !important; border-left: dashed 3px gold;}

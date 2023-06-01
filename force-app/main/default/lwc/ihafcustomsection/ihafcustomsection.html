@@ -1,0 +1,17 @@
+<template>
+    <div>Custom Sections are in development stage !</div>
+    <!-- 
+================================================
+Render a VF page iframe or link as required
+================================================
+-->
+	<template if:true={iframeRender}>
+		<iframe frameborder="0" scrolling={frmS} style={frmW} src={frmU}></iframe>
+        </template>
+	
+	<template if:true={linkRender}>
+		<a href={linkU} target={linkT}>
+			{linkL}
+		</a>
+	</template>
+</template>

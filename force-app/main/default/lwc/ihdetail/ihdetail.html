@@ -1,0 +1,790 @@
+<template>
+	<c-ihcard1 data-id="card" cardsuppressheader={suppressheader} cardsuppressfooter={suppressfooter} footertools={footertools} title={title} 
+	ellipsistools={ellipsistools} modifiedellipsistools={modifiedellipsistools} cardcomponentid={componentid} cardlistensto={listensto}
+	headertoolsupportcontrols={headertoolsupportcontrols} headertools={headertools} cardishelptopic={ishelptopic} idnamelist={detailIdNameList}
+	test={test} isbusy={isbusy} ihcardtype={ihcardtype} advicelabeltools={advicelabeltools} globalsettings={globalsettings}
+	toolcontext={toolcontext} thevote={thevote} modifiedheadertools={modifiedheadertools} delimiter={delimiter} height={height} dropdowntools={dropdowntools} 
+	modifiedbodytools={modifiedbodytools} bodytools={bodytools} helprecordid={helprecordid} currentrecordmetadata={currentrecordmetadata}
+	ihcontext = {ihcontext} tipbuttonuploadimage = {tipbuttonuploadimage} isauthor={isauthor} helpedelements={helpedelements} carduxtheme={uxtheme} cardbackgroundstyle={backgroundstyle} uxbodybackgroundcolour={uxbodybackgroundcolour} 
+	 internationalisations ={internationalisations} uxthemecolour1={uxthemecolour1} uxthemecolour2={uxthemecolour2} uxthemecolour3={uxthemecolour3}
+						 issubcomponent={issubcomponentd} uxmenubackgroundcolour={uxmenubackgroundcolour}>
+<!-- 
+================================================
+NO DATA MESSAGE (IF ZERO ROWS ARE AVAILABLE)
+================================================
+-->
+<div class={editstyling}>
+<template if:true={condition1} >
+	<div class="NoDataMessage">
+		{nodatamessage}
+	</div>
+</template>
+   
+<!-- 
+================================================
+NON-HELP TOPIC MODE
+================================================
+--> 
+<!-- <template if:true={isnontopic}>	-->
+<!--	<template if:true={condition1}>-->
+	<div id="IARecordViewComponentBody" data-id="autoformContainer" style="height: 100%;" class='slds-hide'>		    	
+		<div style="padding: 0 10px; height: 100%;">
+			<c-autoform recordid={helprecordid} data-id="DetailAF" >
+						
+			</c-autoform>
+			
+		</div>		    	 
+	</div>
+<!--</template>-->
+<!--</template>-->
+	
+	<!-- 
+================================================
+TOPIC MODE - VIEW
+================================================
+-->
+<template if:true={condition2}>
+	<div data-id ="view mode" onmouseover={getAdditionalDetails} class={recencymarkingclass}>
+
+			<!-- Mouse over ensures we get editing tools - required for vote question text -->
+
+<!-- 
+................................................
+Layout designer component, if definition provided
+................................................
+-->	            
+
+<!-- 
+................................................
+Standard topic layout if NO designer in play
+................................................
+-->	     
+	
+<!-- 
+................................................
+Summary
+................................................
+-->	            <template if:true={CurrentRecord}>
+		            <div class="slds-col slds-size_1-of-1 slds-m-vertical_medium slds-p-horizontal_small">
+			            <div class="slds-text-heading_medium">
+			                <p class='Centred IHLUXDetailSummary'>
+			                    <a href="#" data-id="theTopicViewer" ondragstart={doDragStart} ondragover={doDragOver} ondragleave={doDragLeave} ondrop={doDrop}>
+			                    	{CurrentRecord.iahelp__Summary__c} 
+			                    </a>
+			                </p>	
+		                </div>							
+		            </div>
+                </template>
+<!-- 
+................................................
+Remaining topic details
+................................................
+-->
+	            <div class="slds-col slds-size_1-of-1 slds-m-vertical_medium slds-p-horizontal_small">                       
+                        <!-- Media container - responsive, two column container for current full topic template -->
+                        <template if:true={CurrentRecord}>
+		                <div class="slds-grid slds-wrap">
+							<div class={imgAvailability}>                                                
+		    
+	                            <!-- Image container -->                    
+	                            <div class={imgContainer} style="width: 100%;">
+	                            
+	                                <div>		
+										<p class="HelpTopic Image Title ViewMode slds-text-align_center slds-text-heading_small">
+			                            	{CurrentRecord.iahelp__ImageTitle__c}
+	
+											<template if:true={CurrentRecord.iahelp__ImageURL__c}>
+												<span onclick={doLightBox}
+														data-media-mode="Image"	
+														title={TipButtonFullSizeImage} 
+														class="IATool fa-lg slds-float_right"
+														>
+														
+												    <i data-media-mode="Image" class="fa fa-external-link" aria-hidden="true" ></i> <!--onclick={openImage} -->
+												</span>
+											</template>
+			                            </p>											
+										<div style={imgstyle}
+			                                 
+											class="IHDetailMediaImage"		
+			                                 title={TipButtonFullSizeImage}
+			                                 data-media-mode="Image"
+											 onclick={doLightBox}
+				                             >
+				                        </div>
+			                        
+	                                    <div class="slds-text-align_center">
+	                                        {CurrentRecord.iahelp__ImageCaption__c}
+	                                    </div>
+				                    </div>
+								</div>	                    
+							</div>
+	                        
+	                        <div class={videoAvailability}>
+                                <!-- Video -->
+								<div class={videoSlds}
+	                                    style="width: 100%;">
+	                            
+	                                <div>
+	                            
+	                                    <div class="HelpTopic Video Title ViewMode slds-text-align_center slds-text-heading_small">
+	                                        {CurrentRecord.iahelp__VideoTitle__c}
+	                                        
+											<template if:true={CurrentRecord.iahelp__VideoURL__c}>
+												<span onclick={doLightBox} 
+														data-media-mode="Video"
+														title={TipButtonFullSizeImage} 
+														class="IATool fa-lg slds-float_right"
+														>
+														
+												    <i data-media-mode="Video" class='fa fa-external-link' aria-hidden="true"></i> <!--onclick={openVideo}-->
+												</span>
+											</template>
+	                                        
+	                                    </div>
+	                                    
+	                                    <div class="slds-align_absolute-center">								
+											<template if:true = {checkVideoUrl}>
+												<iframe data-id="TopicVideoIframe"
+														class={videoSlds} 
+														frameborder="0" 
+														allowfullscreen="allowfullscreen"
+														src={CurrentRecord.iahelp__VideoURL__c}
+														style={videoStyle}>
+												</iframe>
+											</template>                                                                 
+	                                    </div>                                
+	                                    
+	                                    <div class="slds-text-align_center">
+	                                        {CurrentRecord.iahelp__VideoCaption__c}
+	                                    </div>
+	                                </div>
+	                            </div>
+								</div>
+                            </div>
+                            </template>
+                        
+		                <!-- 
+		                Topic Description : note that for viewing ONLY we use the keyword parsed version,
+		                i.e., the one containing links to keyword topics...
+		                -->
+		                <div class="slds-col slds-size_1-of-1 slds-m-vertical_medium slds-text-longform HelpTopic Description ViewMode">
+							<lightning-formatted-rich-text value={descriptionText} ></lightning-formatted-rich-text>
+		                </div>
+	                
+	                
+						<!-- 
+						Vote Options, where a vote is specified for this Topic:
+						
+						NB: we don't want vote options to appear on their own in advance of any accompanying question text - but
+						the latter is not available until editing controls have been sought (just-in-time loading for performance reasons).
+						However, we cannot render on the basis of question text, as this may or may not actually be in play (some votes
+						do not have question texts). SO: render on the basis of definitive availability of editing controls (and thus 
+						question text where relevant). This can be checked via topic callout pick list values... 
+                         -->
+						 
+		             <!--   <template if:true={selectedVote}>
+		                    <div class="slds-text-body_regular" style="border-top: solid 1px #dddddd; padding-top: 5px;" >
+								<div class="Centred">
+				                    <div class="slds-text-body_regular slds-m-vertical_small" style="display: inline;">	
+										<img class={selectedVoteImg} 
+												src={SelectedVoteSet.iahelp__ImageClass__c} 
+												style="margin-right: 10px; height: 16px; width: 16px; border: 0;"></img>
+												
+										<span style="color: orange;">
+				                        	{voteSetText}
+										</span>
+		
+				                    </div>
+								</div>	                    		
+		                    </div>
+	
+	
+							<div class="Centred" style="padding-bottom: 1rem;">
+				                <template for:each={VoteOptions} for:item="VO">
+									<div key ={VO.Id} class="VoteOption">
+										<a
+					                			class='LastVote'
+					                			href="#" 
+												title={TipVote}			                			
+					                			onclick={castVote}>		                	
+									
+										
+											<span
+													class='slds-badge slds-badge_lightest slds-theme_inverse'>
+												
+												<span
+														class="slds-icon_container slds-m-right_xx-small" >
+											
+													<img
+														class='' 
+														src={VO.iahelp__ImageClass__c} 
+														alt={VO.iahelp__OptionLabel__c} 
+														style="height: 1.2em;" ></img>
+											
+												</span>
+			
+												{VO.iahelp__OptionLabel__c}
+											</span>		                	
+										</a> &#32;&nbsp;&#32;
+									</div>
+				                </template>
+							</div>
+		                </template> -->
+	<!---------------------------------- Calling Vote component to implement voting feature  ------------------------------- -->
+					<template if:true={getVoteOption}>
+		              <c-vote data-id="vote" templatesc={TemplatesC} currentrecord={CurrentRecord} helpcontext={TreeContext} localvote={getTheVote} tipvote={TipVote} selectedvoteset={SelectedVoteSet} voteoptions={getVoteOption}></c-vote>         
+					</template>
+				</div>						
+<!-- 				
+................................................
+Optional, template driven sub-component
+................................................
+-->
+<div class="slds-col slds-size_1-of-1 slds-m-vertical_medium slds-p-horizontal_small Centred">
+	
+	<c-ihcomponentgenerator isauthor = {isauthor} componentdef={cmpGeneratorVal} data-id="CGIHDetail"></c-ihcomponentgenerator>
+ 
+		</div>
+</div>
+</template>	<!-- End if standard layout, NOT designer, is in play -->
+			<!-- End if data mode = VIEW Help Topic -->
+<!-- 
+================================================
+TOPIC MODE - EDIT
+================================================
+-->
+<template if:true={condition3}>
+	<!-- 
+................................................
+Tab Headers
+................................................
+-->
+<div style="height: 40px;" onmouseover={getAdditionalDetails}>
+	<ul class="slds-tabs_default__nav" role="tablist">
+		
+		<li data-id="tabSelector1"  class="slds-tabs_default__item slds-text-heading_label slds-active" title="" role="presentation">
+			<a class="slds-tabs_default__link" onclick={selectTab} href="#" role="tab" tabindex="0" aria-selected="true" aria-controls="HelpTopicEditTab1">
+				{TitleTabVisible}
+			</a>
+		</li>
+		
+		<li data-id="tabSelector2" class="slds-tabs_default__item slds-text-heading_label" title="" role="presentation">
+			<a class="slds-tabs_default__link" onclick={selectTab} href="#" role="tab" tabindex="-1" aria-selected="false" aria-controls="HelpTopicEditTab2">
+				{TitleTabGeneral}
+			</a>
+		</li>
+		
+		<li data-id="tabSelector3" class={selector3class} 
+				title="" role="presentation">
+
+			<a class="slds-tabs_default__link" onclick={selectTab} href="#" role="tab" tabindex="-1" aria-selected="false" aria-controls="HelpTopicEditTab3">
+				{TitleTabCustom}
+			</a>
+		</li>								  
+
+		<li data-id="tabSelector4" class="slds-tabs_default__item slds-text-heading_label" title="" role="presentation">
+			<a class="slds-tabs_default__link" onclick={selectTab} href="#" role="tab" tabindex="-1" aria-selected="false" aria-controls="HelpTopicEditTab4">
+				{TitleTabStatus}
+			</a>
+		</li>
+
+		<li data-id="tabSelector5" class="slds-tabs_default__item slds-text-heading_label" title="" role="presentation">
+			<a class="slds-tabs_default__link" onclick={selectTab} href="#" role="tab" tabindex="-1" aria-selected="false" aria-controls="HelpTopicEditTab5">
+				{TitleTabText}
+			</a>
+		</li>
+
+		<li data-id="tabSelector6" class="slds-tabs_default__item slds-text-heading_label" title="" role="presentation">
+			<a class="slds-tabs_default__link" onclick={selectTab} href="#" role="tab" tabindex="-1" aria-selected="false" aria-controls="HelpTopicEditTab6">
+				{TitleTabGuides}
+			</a>
+		</li>
+
+	 </ul>
+</div>
+<!-- 
+................................................
+Visible fields tab
+................................................
+-->
+<div data-id="HelpTopicEditTab1" class="slds-tabs_default__content slds-show slds-scrollable_y TabPanel" role="tabpanel" aria-labelledby="HelpTopicEditItemTab1">
+	<div class="slds-grid"  >
+		<div class="slds-col slds-p-horizontal_small">
+			
+			<!-- Name & Summary -->
+			<div class="slds-text-heading_small slds-m-vertical_small">
+				<lightning-input type="text" value={CurrentRecord.Name} maxlength="80" placeholder={FieldLabelName} data-id="Name" onchange={setDirty}></lightning-input>
+			</div>
+			
+			<div class="slds-text-body_regular slds-m-bottom_small">
+ 
+				<lightning-input type="text" value={CurrentRecord.iahelp__Summary__c} data-id="Summary" onchange={setDirty}
+						variant="label-hidden"
+						required="true" message-when-value-missing={MessageValueRequired}
+						placeholder={FieldLabelSummary} maxlength="255" ></lightning-input>
+						
+			</div>
+			
+			<!-- Media -->
+			<div class="slds-grid slds-gutters_x-small slds-wrap">
+
+				<!-- Image -->
+				<div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-2">
+
+					<div class="slds-m-vertical_small slds-text-align_center slds-text-heading_small">
+						<lightning-input type="text" data-id="txtImgTitle" value={CurrentRecord.iahelp__ImageTitle__c} placeholder={FieldLabelImageTitle}  maxlength="255" onchange={setDirty}></lightning-input>
+					</div>                                            
+					
+					<div style={imgStyleEditMode}>
+					</div>
+					
+					<div class="slds-m-vertical_small slds-text-align_center">
+						<lightning-input type="text" data-id="txtImgCaption" value={CurrentRecord.iahelp__ImageCaption__c} placeholder={FieldLabelImageCaption} maxlength="255" onchange={setDirty}></lightning-input>
+					</div>
+
+													
+					<!-- Image detail parameters panel -->
+					<div data-id="ImgEditor" class="slds-section ParameterEditMenu">
+
+						<h3 onclick={toggleImageEdit} class="slds-text-heading_small slds-accordion__summary-heading">
+							<button type="button"
+									aria-controls="ImageParameterPanel" 
+									class="slds-button slds-section__title-action"
+									>
+			
+								<lightning-icon data-id="ImgEditor_Twisty" class="slds-button__icon" size="xx-small" icon-name="utility:chevronright"></lightning-icon>
+				
+								<span class="slds-truncate" title={TipButtonSettings}>
+									{TitleTabImage}: {AdviceLabelProperties}										
+								</span>
+							</button>
+						</h3>
+								
+						<div aria-hidden="false" class="slds-section__content" id="ImageParameterPanel">
+						
+							{FieldLabelImageURL}
+							<lightning-input type="text" class="" data-id="txtImgURL" value={CurrentRecord.iahelp__ImageURL__c} maxlength="255" onchange={setDirty}></lightning-input>
+							
+							{FieldLabelImageALTText} 
+							<lightning-input type="text" class="" data-id="txtImgALTText" value={CurrentRecord.iahelp__ImageALTText__c} maxlength="255" onchange={setDirty}></lightning-input>
+							
+							{FieldLabelImageWidth} 
+							<lightning-input type="number" class="" data-id="txtImgWidth" value={CurrentRecord.iahelp__ImageWidth__c} onchange={setDirty}></lightning-input>   
+							
+							{FieldLabelImageHeight} 
+							<lightning-input type="number" class="" data-id="txtImgHeight" value={CurrentRecord.iahelp__ImageHeight__c} onchange={setDirty}></lightning-input> 
+							
+						</div>
+					</div>		                                        
+				</div>
+				
+				<!-- Video -->
+				<div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-2">
+
+					<div class="slds-m-vertical_small slds-text-align_center slds-text-heading_small">
+						<lightning-input type="text" data-id="txtVidTitle" value={CurrentRecord.iahelp__VideoTitle__c} placeholder={FieldLabelVideoTitle} maxlength="255" onchange={setDirty}></lightning-input>
+					</div>                                           
+					
+					<div class="slds-align_absolute-center">
+						<iframe class={videoSlds} frameborder="0" 
+								src={CurrentRecord.iahelp__VideoURL__c} 
+								style={videoStyle2}
+								></iframe>
+					</div>
+					
+					<div class="slds-m-vertical_small slds-text-align_center">
+						<lightning-input type="text" data-id="txtVidCaption" value={CurrentRecord.iahelp__VideoCaption__c} placeholder={FieldLabelVideoCaption} maxlength="255" onchange={setDirty}></lightning-input>
+					</div>                                           
+										   
+					<!-- Video detail parameters panel -->
+					<div data-id="VidEditor" class="slds-section ParameterEditMenu">
+
+						<h3 onclick={toggleVideoEdit} class="slds-text-heading_small slds-accordion__summary-heading">
+							<button type="button"
+									aria-controls="VideoParameterPanel" 
+									class="slds-button slds-section__title-action"
+									>
+			
+								<lightning-icon data-id="VidEditor_Twisty" class="slds-button__icon" size="xx-small" icon-name="utility:chevronright"></lightning-icon>
+				
+								<span class="slds-truncate" title={TipButtonSettings}>
+									{TitleTabVideo}: {AdviceLabelProperties}										
+								</span>
+							</button>
+						</h3>
+					   
+						<div aria-hidden="false" class="slds-section__content" id="VideoParameterPanel">
+						
+							{FieldLabelVideoURL} 
+							<lightning-input type="text" class="Parameter" data-id="txtVidURL" value={CurrentRecord.theTopicViewer} maxlength="255" onchange={setDirty}></lightning-input>
+
+							{FieldLabelVideoWidth} 
+							<lightning-input type="number" class="Parameter" data-id="txtVidWidth" value={CurrentRecord.iahelp__VideoWidth__c} onchange={setDirty}></lightning-input>   
+
+							{FieldLabelVideoHeight}
+							<lightning-input type="number" class="Parameter" data-id="txtVidHeight" value={CurrentRecord.iahelp__VideoHeight__c} onchange={setDirty}></lightning-input>                                        
+						
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div>
+	<!-- 
+................................................
+General tab
+................................................
+-->
+<div data-id="HelpTopicEditTab2" class="slds-tabs_default__content slds-hide slds-scrollable_y TabPanel" role="tabpanel" aria-labelledby="HelpTopicEditItemTab2">
+	<div class="slds-grid">
+		<div class="slds-col slds-p-horizontal_small">
+
+			<div class="slds-text-body_regular slds-m-vertical_small">                            
+				{FieldLabelMasterTopicIdentifier} <lightning-input type="text" value={CurrentRecord.iahelp__MasterTopicIdentifier__c} maxlength="255" data-id="MasterTopic" onchange={setDirty}></lightning-input>
+			</div>
+
+			<div class="slds-text-body_regular slds-m-vertical_small">                            
+				{FieldLabelSFHelpURL} <lightning-input type="text" value={CurrentRecord.iahelp__SalesforceHelpURL__c} maxlength="255" data-id="HelpUrl" onchange={setDirty}></lightning-input>
+			</div>
+			
+			<div class="slds-text-body_regular slds-m-vertical_small">
+				{FieldLabelCalloutTemplate} <lightning-combobox  value={CurrentRecord.iahelp__CalloutTemplate__c} options={optsC} data-id="CalloutTemplate" multiple="false" onchange={setDirty}>
+					</lightning-combobox>
+			</div>
+			
+			<div class="slds-text-body_regular slds-m-vertical_small">
+				{FieldLabelCalloutHeight} 
+				<lightning-input value={CurrentRecord.iahelp__CalloutHeight__c} onchange={setDirty}
+						variant="label-hidden" type="number"
+						required="true" message-when-value-missing={MessageValueRequired} data-id="CalloutHeight"></lightning-input>
+
+			</div>
+			
+			<div class="slds-text-body_regular slds-m-vertical_small">
+				{FieldLabelCalloutMediaChoice} <lightning-combobox data-id="CalloutMediaChoice" multiple="false"  onchange={setDirty} value={CurrentRecord.iahelp__CalloutMediaChoice__c} options={medialist}>
+				</lightning-combobox>    
+			</div>
+
+			<div class="slds-text-body_regular slds-m-vertical_small">
+				<a href="#" onclick={previewCallout} title={TipButtonPreviewCallout}>
+					{ButtonPreviewCallout} 
+				</a>
+				
+				: : :
+				
+				<a href="#" onclick={previewCalloutAsEdited} title={TipButtonPreviewCalloutAsEdited}>
+					{ButtonPreviewCalloutAsEdited} 
+				</a>
+				
+				: : :
+
+				<a href="#" onclick={gotoTemplates} title={TipButtonGotoTemplates}>
+					{ButtonGotoTemplates} 
+				</a>
+			</div>
+
+			<div class="slds-text-body_regular slds-m-vertical_small">
+				{FieldLabelFullTemplate} <lightning-combobox  value={CurrentRecord.iahelp__Template__c} options={optsF} data-id="Template" multiple="false" onchange={setDirty}>
+					</lightning-combobox>       
+			</div>
+
+			<div class="slds-text-body_regular slds-m-vertical_small">
+				{FieldLabelLightningTemplate} <lightning-combobox  value={CurrentRecord.iahelp__LightningTemplate__c} options={optsL} data-id="LightningTemplate" multiple="false" onchange={setDirty}>
+					</lightning-combobox> 
+			</div>
+
+			<div class="slds-text-body_regular slds-m-vertical_small">
+				{FieldLabelHeightBeforeScrolling} 
+				<lightning-input value={CurrentRecord.iahelp__HeightBeforeScrolling__c} data-id="HeightBScrolling" onchange={setDirty}
+						variant="label-hidden" type="number"
+						required="true" message-when-value-missing={MessageValueRequired} ></lightning-input>
+
+			</div>
+		</div>
+	</div>
+</div>  		
+</div>
+<!-- 
+................................................
+Custom fields Tab
+................................................
+-->
+	                <div data-id="HelpTopicEditTab3" class="slds-tabs_default__content slds-hide slds-scrollable_y TabPanel" role="tabpanel" aria-labelledby="HelpTopicEditItemTab3">
+	            	    <div class="slds-grid">
+	            	        <div class="slds-col slds-p-horizontal_small">
+	
+	        	                <template for:each={modifiedCustomFields} for:item="T">
+
+<!-- 
+NEED TO DEAL WITH:
+PICK LIST TYPES
+LOOKUPS
+ -->
+	
+	                                <!--
+	                                As we iterate around custom fields, respond to field type, 
+	                                hiding all but the required control (note text box as default
+	                                when field is not of another known type)
+	                                -->	                      
+	                                <template if:true={T.typeUnclear}>                
+		                                <div key={T.CF.Id} class="slds-text-body_regular slds-m-vertical_small">
+		                                    <lightning-input type="text" data-id="CUSTOMFIELD" data-fieldapi={T.CF.CustomField.fieldPath} label={T.CF.CustomField.label} value={T.CF.Val} onchange={setDirty}></lightning-input>
+		                                </div>      	                    
+									</template> 
+
+									<template if:true={T.boolean}> 
+										<div key={T.CF.Id} class="slds-text-body_regular slds-m-vertical_small">
+											<lightning-input type="checkbox" data-id="CUSTOMFIELD" data-fieldapi={T.CF.CustomField.fieldPath} label={T.CF.CustomField.label} checked={T.CF.Val} onchange={setDirty}></lightning-input>
+										</div>
+									</template> 
+
+									<template if:true={T.currency}> 
+										<div key={T.CF.Id} class="slds-text-body_regular slds-m-vertical_small">
+											<lightning-input type="currency" data-id="CUSTOMFIELD" data-fieldapi={T.CF.CustomField.fieldPath}  label={T.CF.CustomField.label} value={T.CF.Val} onchange={setDirty}></lightning-input>
+										</div>
+									</template> 
+
+									<template if:true={T.date}>  
+										<div key={T.CF.Id} class="slds-text-body_regular slds-m-vertical_small">
+											<lightning-input type="Date" data-id="CUSTOMFIELD" data-fieldapi={T.CF.CustomField.fieldPath} label={T.CF.CustomField.label} value={T.CF.Val} onchange={setDirty} display-date-picker="true"></lightning-input>
+										</div>
+									</template> 
+
+									<template if:true={T.datetime}>  
+										<div key={T.CF.Id} class="slds-text-body_regular slds-m-vertical_small">
+											<lightning-input type="DateTime" data-id="CUSTOMFIELD" data-fieldapi={T.CF.CustomField.fieldPath} label={T.CF.CustomField.label} value={T.CF.Val} onchange={setDirty} display-date-picker="true"></lightning-input>
+										</div>
+									</template> 
+
+									<template if:true={T.email}>   	
+										<div key={T.CF.Id} class="slds-text-body_regular slds-m-vertical_small">
+											<lightning-input type="email" data-id="CUSTOMFIELD" data-fieldapi={T.CF.CustomField.fieldPath} label={T.CF.CustomField.label} value={T.CF.Val} onchange={setDirty}></lightning-input>
+										</div>
+									</template> 
+
+									<template if:true={T.number}> 
+										<div key={T.CF.Id} class="slds-text-body_regular slds-m-vertical_small">
+											<lightning-input type="number" data-id="CUSTOMFIELD" data-fieldapi={T.CF.CustomField.fieldPath} label={T.CF.CustomField.label} value={T.CF.Val} onchange={setDirty}></lightning-input>
+										</div>
+									</template> 
+
+									<template if:true={T.textarea}>  	
+										<div key={T.CF.Id} class="slds-text-body_regular slds-m-vertical_small">
+											<lightning-input type="textarea" data-id="CUSTOMFIELD" data-fieldapi={T.CF.CustomField.fieldPath} label={T.CF.CustomField.label} value={T.CF.Val} onchange={setDirty}></lightning-input>
+										</div>
+									</template> 
+
+									<template if:true={T.url}>   	
+										<div key={T.CF.Id} class="slds-text-body_regular slds-m-vertical_small">
+											<lightning-input type="url" data-id="CUSTOMFIELD" data-fieldapi={T.CF.CustomField.fieldPath} label={T.CF.CustomField.label} value={T.CF.Val} onchange={setDirty}></lightning-input>
+										</div>
+									</template>
+
+	    	                    </template>
+	
+	            	        </div>
+	            	    </div>
+	            	</div>
+<!-- 
+................................................
+Status Tab
+................................................
+-->
+<div data-id="HelpTopicEditTab4" class="slds-tabs_default__content slds-hide slds-scrollable_y TabPanel" role="tabpanel" aria-labelledby="HelpTopicEditItemTab4">
+	<div class="slds-grid">
+		<div class="slds-col slds-p-horizontal_small">
+			<div class="slds-text-body_regular slds-m-vertical_small">
+				{FieldLabelActive} <lightning-input checked={CurrentRecord.iahelp__Active__c} data-id="Active" onchange={setDirty} type="checkbox" ></lightning-input>
+			</div>
+			
+			<div class="slds-text-body_regular slds-m-vertical_small">
+				{FieldLabelShowReadMore} <lightning-input checked={CurrentRecord.iahelp__ShowReadMoreLink__c} data-id="ReadMoreLink" onchange={setDirty} type="checkbox" ></lightning-input>
+			</div>
+			
+			<div class="slds-text-body_regular slds-m-vertical_small">
+				{FieldLabelShowReferringTopics} <lightning-input checked={CurrentRecord.iahelp__ShowReferringRelationships__c} data-id="ReferringRelationships" onchange={setDirty} type="checkbox" ></lightning-input>
+			</div>
+
+			<div class="slds-text-body_regular slds-m-vertical_small">
+				{FieldLabelStatus} <lightning-combobox  value={CurrentRecord.iahelp__HelpTopicStatus__c} options={topicStatus} data-id="HelpTopicStatus" multiple="false" onchange={setDirty}>
+				</lightning-combobox>
+			</div>
+
+			<div class="slds-text-body_regular slds-m-vertical_small">
+				{FieldLabelVisibility} <lightning-combobox  value={CurrentRecord.iahelp__Visibility__c} options={optsV} data-id="Visibility" multiple="false" onchange={setDirty}>
+				</lightning-combobox>
+			</div>
+
+			<div class="slds-text-body_regular slds-m-vertical_small">
+				{FieldLabelCustomStyle} <lightning-combobox  value={CurrentRecord.iahelp__CustomStyle__c} options={optsCS} data-id="CustomStyle" multiple="false" onchange={setDirty}>
+				</lightning-combobox>
+			</div>
+
+			<div class="slds-text-body_regular slds-m-vertical_small">
+				{FieldLabelVoteInfo}
+				<!-- 
+	                                        NOTE: for "None" drop down entry, we need to use a value that positively
+	                                        specifies "null" - as attempting to use a plain null in an option results in
+	                                        no discernable value, so the drop down entry can never be reliably selected
+	                                        -->
+				<lightning-combobox  value={CurrentRecord.iahelp__HelpVoteSet__c} options={optsVO} data-id="HelpVoteSet" multiple="false" onchange={setDirty}>
+				</lightning-combobox>							
+			</div>
+			<div class="slds-text-body_regular slds-m-vertical_small">
+			   <span style="color: orange;">
+				{voteSetText}
+			   </span>
+			</div>
+			
+			<div class="slds-text-body_regular slds-m-vertical_small">
+				<img src={SVImg} style="height: 16px; width: 16px; border: 0;"></img>
+			</div>
+
+		   <div class="slds-text-body_regular slds-m-vertical_small">
+				<a href="#" onclick={maintainVoteSets}>
+					{ButtonGotoVoteSets}
+				</a>
+		   </div>
+		</div>
+	</div>
+</div>
+<!-- 
+................................................
+Rich Text
+................................................
+-->
+<div data-id="HelpTopicEditTab5" class="slds-tabs_default__content slds-hide slds-scrollable_y TabPanel" role="tabpanel" aria-labelledby="HelpTopicEditItemTab5">
+	<div class="slds-grid">
+		<div class="slds-col slds-p-horizontal_small">
+			<div class="slds-col slds-size_1-of-1 slds-m-vertical_medium slds-p-horizontal_small slds-text-longform HelpTopic Description EditMode">
+				
+				<lightning-input-rich-text 
+						formats="['font', 'size', 'bold', 'italic', 'underline',
+							'strike', 'list', 'indent', 'align',
+							'clean', 'table', 'header', 'color', 'link']"
+							
+						value={CurrentRecord.iahelp__Description__c} data-id="Description" onblur={setDirty}>
+				
+				</lightning-input-rich-text>
+			
+			</div>
+
+			<div class="slds-text-body_regular slds-m-vertical_small">
+				{FieldLabelKeywords} <lightning-input type="text" value={CurrentRecord.iahelp__Keyword__c} maxlength="255" data-id="Keyword" onchange={setDirty}></lightning-input>
+			</div>
+		</div>
+	</div>
+</div> 
+<!-- 
+................................................
+Guides Tab
+................................................
+-->
+<div data-id="HelpTopicEditTab6" class="slds-tabs_default__content slds-hide slds-scrollable_y TabPanel" role="tabpanel" aria-labelledby="HelpTopicEditItemTab6">
+	<div class="slds-grid">
+		<div class="slds-col slds-p-horizontal_small">
+			
+			<span class='IHError'>
+				{AdviceLabelGuideSettings}	            	        
+			</span>	            	        
+		
+			<div class="slds-text-body_regular slds-m-vertical_small">
+				{FieldLabelStepMode} <lightning-combobox  value={CurrentRecord.iahelp__GuideStepMode__c} options={optsSL} data-id="GuideStepMode" multiple="false" onchange={setDirty}>
+				</lightning-combobox>
+			</div>
+
+			<div class="slds-text-body_regular slds-m-vertical_small">
+				{FieldLabelStepLayout}<lightning-combobox  value={CurrentRecord.iahelp__GuidedLayout__c} options={optsGL} data-id="GuidedLayout" multiple="false" onchange={setDirty}>
+				</lightning-combobox>
+				<!--  
+	                                        NOTE: for "None" drop down entry, we need to use a value that positively
+	                                        specifies "null" - as attempting to use a plain null in an option results in
+	                                        no discernable value, so the drop down entry can never be reliably selected
+	                                        -->
+			</div>
+
+			<div class="slds-text-body_regular slds-m-vertical_small">
+				{FieldLabelStepElement} <lightning-combobox  value={CurrentRecord.iahelp__GuidedElement__c} options={optsGE} data-id="GuidedElement" multiple="false" onchange={setDirty}>
+				</lightning-combobox>
+			</div>
+
+			<div class="slds-text-body_regular slds-m-vertical_small">
+				{FieldLabelStepContext} <lightning-input type="text" value={CurrentRecord.iahelp__GuidedRecord__c} maxlength="255" data-id="GuidedRecord" onchange={setDirty}></lightning-input>
+			</div>
+			
+			<div class="slds-text-body_regular slds-m-vertical_small">
+				{FieldLabelShowCallout} <lightning-input type="checkbox" checked={CurrentRecord.iahelp__GuideCallout__c} data-id="GuideCallout" onchange={setDirty}></lightning-input>
+			</div>
+	   </div>
+   </div>
+</div> <!-- end of edit tabs --> 
+<!-- 
+................................................
+Tab Footer: Created / Modified info
+................................................
+-->
+<div class="TabFooter slds-p-horizontal_small">
+	<div class="slds-grid">
+		<div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+				<div class="slds-text-body_small">
+					{FieldLabelCreatedBy}: {CurrentRecord.CreatedBy.Name}{CurrentRecord.CreatedDate}
+					<br/>{FieldLabelCreatedByDT}: <lightning-formatted-date-time value={CurrentRecord.CreatedDate}></lightning-formatted-date-time>
+				</div>
+		</div>
+			<div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2 ">
+				<div class="slds-text-body_small">
+					{FieldLabelModifiedBy}: {CurrentRecord.LastModifiedBy.Name}
+					<br/>{FieldLabelModifiedByDT}: <lightning-formatted-date-time value={CurrentRecord.LastModifiedDate}></lightning-formatted-date-time>
+				</div>
+			</div>
+	</div>
+</div> 
+<!-- 
+................................................
+Save / Cancel controls
+................................................
+-->
+                <div class="slds-grid ">
+                    
+					<div class="slds-col TabFooterTools slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2" style="padding-left: 5px;">                    
+                        <span class="fa-stack fa-lg IATool BookmarkAdd">
+                            <i class="fa fa-circle fa-stack-2x" aria-hidden="true"></i>
+							<i title={ButtonSave} data-actioncode="Save" class="fa fa-check fa-stack-1x fa-inverse " onclick={menuItemClick} aria-hidden="true" ></i>
+                            <span class="sr-only">
+								{ButtonSave}
+                            </span>
+                        </span>                            
+            
+                        <span class="fa-stack fa-lg IATool">
+                            <i class="fa fa-circle fa-stack-2x" aria-hidden="true"></i>
+							<i title={ButtonQuickSave} data-actioncode="QuickSave" class="fa fa-check fa-stack-1x fa-inverse" onclick={menuItemClick} aria-hidden="true" ></i>
+                            <span class="sr-only">
+								{ButtonQuickSave}
+                            </span>
+                        </span>                            
+
+                        <span class="fa-stack fa-lg IATool">
+                            <i class="fa fa-circle fa-stack-2x" aria-hidden="true"></i>
+							<i  title={ButtonCancel} data-actioncode="Cancel" class="fa fa-times fa-stack-1x fa-inverse" onclick={menuItemClick} aria-hidden="true" ></i>
+                            <span class="sr-only">
+								{ButtonCancel}
+                            </span>
+                        </span>
+
+					</div>
+
+					<div class="slds-col TabFooterTools slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">                        
+                        <div class="slds-text-body_small" style="padding-top: 0.6em;">
+                        	Id: {CurrentRecord.Id}
+                        </div>
+					</div>                        
+
+                </div>	   
+</template>	<!-- end of IF date mode = EDIT Help Topic -->		
+</div>
+<span slot="footer" ></span>
+		</c-ihcard1>
+</template>

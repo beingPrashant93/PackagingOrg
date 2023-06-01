@@ -1,0 +1,23 @@
+.ql-editor{
+	position: relative !important;
+}
+.fa-square {
+	color: white;
+  }
+/*.fa-stack-2x{
+	font-size: 3em;
+	text-align: center;
+}
+.fa-stack-1x{
+	font-size: 2em;
+	text-align: center;
+}*/
+
+.stack-size {
+	font-size: 1.5rem
+}
+
+.fullheightwidth {
+	height : 100%;
+	width : 100%;
+}

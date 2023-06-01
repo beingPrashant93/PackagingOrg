@@ -1,0 +1,305 @@
+<template>
+    <c-ihcard1 cardlistitems={cardlistitems} title={listtitle} ihcardtype={ihcardtype} delimiter={delimiter} headertools={headertools} dropdowntools={dropdowntools}
+    ellipsistools={ellipsistools} cardsuppressfooter={suppressfooter} cardsuppressheader={suppressheader} cardcomponentid={componentid} cardlistensto={listensto}
+    modifiedheadertools={modifiedheadertools} height={height} helprecordid={helprecordid} toolcontext={toolcontext} footertools={footertools} reff={reff}
+     modifiedheadertoolsupportcontrols={modifiedheadertoolsupportcontrols} actioncode={actioncode} modifiedcardlistitems={modifiedcardlistitems} srif={srif} var1={listingclickactioncode}
+     modifiedlistingtoollc={modifiedlistingtoollc} cardconfig={CardConfig} sobjectname={sobjectname} globalsettings={globalsettings} advicelabeltools={advicelabeltools}
+     oncardinfo={handlecardinfo} componentref={componentref} internationalisations={internationalisations} icon={listicon} uniqueident={uniqueident} oncallpasstoparent={passToParent} diags={Diags} carduxtheme={uxtheme} cardbackgroundstyle={backgroundstyle} 
+     uxthemecolour1={uxthemecolour1} uxthemecolour2={uxthemecolour2} uxthemecolour3={uxthemecolour3} uxbodybackgroundcolour={uxbodybackgroundcolour}>
+
+<!-- ================================================
+		NO DATA MESSAGE (IF ZERO NODES ARE AVAILABLE) 
+================================================
+		-->
+        <div class={nodatamsgclass}>		
+            {nodatamessage}
+        </div>
+        <div id="IAListComponentBody" class={IAListComponentBodyclass} onmouseenter={markSelections}> 
+<!-- 
+================================================
+LISTING - NARROW FORM
+================================================
+            
+................................................
+ List Items
+ ................................................
+ -->
+        <template if:true={ListingStyleNarrow}>    
+            <ul class={ListingStyleclass}>
+
+                <template for:each={modifiedcardlistitems} for:item="L" >
+                    <li key={L.lis.id}
+                        data-cmpid={globalId}
+                        ondragstart={doDragStart}
+                        data-ids={L.id}
+                        data-idss="LINarrow_"
+                        data-id="HelpListingItem" 
+                        class={L.classli}
+                    >
+                        <div class="slds-grid">
+                            <div class="slds-col_padded ListItemLink">
+                                <h3 class="slds-truncate" >
+                                                 
+                                    <!-- Allow for listing click action overrides -->  
+                                    <template if:true={ListingClickActionCodeConditon}>
+                                            <a class={L.lis.StyleClass} id={L.id1} data-actioncode={L.lis.ActionCode} title={L.lis.Title} href="javascript:void(0);" onclick={listingToolClick}> 
+                                                {L.lis.Label}
+                                            </a>
+                                    </template>
+                                    <template if:false={ListingClickActionCodeConditon}>
+                                            <a class={L.lis.StyleClass} id={L.id2} data-actioncode={L.lis.ActionCode} href="javascript:void(0);"  title={L.lis.Title} onclick={listingToolClick}>
+                                                {L.lis.Label}
+                                            </a>
+                                    </template>
+                                </h3>
+                            </div>
+<!-- 
+................................................
+Additional listing columns, where member data specified this
+................................................
+-->  
+
+                        <!--<template if:true={alc}>
+                            <div class="slds-col_bump-left">
+                                <template for:each={L.lis.Cols} for:item="col" for:index="cIdx">
+                                    <span key={col.Id} title={col1} class="AdditionalColumn">
+                                            span tag
+                                    </span>
+                                </template>
+                            </div>
+                        </template>-->  
+<!-- 
+................................................
+In-line listing tools
+................................................
+-->
+                            <!-- NOTE: Do not display tools if there's a configuration issue... -->
+                            <div class={L.divIL1}>
+                                <div class={L.divIL2}>
+                                    <template for:each={modifiedlistingtoollc} for:item="T" >
+                                        <!--
+                                        We need to show / hide tools based on certain contextual markers:
+                                        E.g., if already bookmarked, show remove bmk etc...
+                                        Note: onward toggling of "show next" tool etc covered in click handler: 
+                                        all we need to do here is choose which tool to show initially...
+                                        
+                                        SHOW TOOL IF:
+                                            Tool is NOT in Group ([NEXT] = 0)
+                                            OR Row marks tool as current( Row marked with "active" marker for this tool)
+                                            OR Tool is Group default and no Row current marker ([PREV] = 0 AND Row has no "active" marking at all)
+                                            OR Tool is Group default in ALL cases ([PREV] = 0 AND tool's active marker = "Any" meta condition)
+                                        -->
+                                        <span class={L.ltlcclass} key={T.ltlc.id}  title={T.title} style={T.style}>
+                                            <i id={L.idid} class={T.classitag} data-actioncode={T.ltlc.iahelp__ActionCode__c} aria-hidden="true" onclick={listingToolClick} title={T.title}>    
+                                            </i>
+                                                <span class="fa-stack-1x" id={L.idid} data-actioncode={T.ltlc.iahelp__ActionCode__c} onclick={listingToolClick}>
+                                                    {T.ltlc.iahelp__IconContent__c}
+                                                </span>
+
+                                                <span class="sr-only">
+                                                    {T.ltlc.iahelp__Label__c}
+                                                </span>
+                                        </span>
+                                    </template>   
+                                </div> <!-- END of div defining expandable / collapsible tools listing -->
+                            </div>
+                        
+                    
+                            <div>
+                                <!-- Collapse inline listing tools to an ellipsis button above tool number threshold -->
+                                <div class={L.classcollapse} style={L.style1}>
+                                    <span class={L.classspan}>
+                                        <i class="fa fa-square fa-stack-2x" aria-hidden="true"></i>
+                                        <i id={L.iditag} class="fa fa-ellipsis-h fa-stack-1x fa-inverse"
+                                           data-actioncode="ToggleListingTools"
+                                           onclick={listingToolClick}
+                                           title={L.titleALTs} 
+                                           aria-hidden="true"></i>
+                                        <span class="sr-only">{advicelabeltools}</span>
+                                    </span>
+                                </div>
+                            </div><!-- END of div for ellipsis tool-->
+                        </div>
+
+                        <div class="slds-text-body_small">
+                            <p data-id="Compact" class={L.classp}>
+                                {L.lis.Title} 
+                            </p>
+                        </div>
+                    </li>
+                </template>
+            </ul>
+        </template>   
+
+<!-- 
+================================================
+LISTING - WIDE FORM
+================================================
+
+................................................
+List Items
+................................................
+-->
+        <template if:true={ListingStyleWide}>
+
+            <table class={tableclass}>
+                <tbody>
+                    <template for:each={modifiedcardlistitems} for:item="L" >
+                        <tr key={L.lis.id}
+                            data-cmpid={globalId}
+                            data-ids={L.trid}
+                            data-idss="LIWide_"
+                            data-id="HelpListingItem" 
+                            ondragstart={doDragStart} 
+                            class={L.trclass}>
+
+                            <th scope="row">
+                                <span class="fa-stack fa-lg" style={L.style1}>
+                                    <i class="fa fa-square fa-stack-2x" aria-hidden="true"></i>
+                                    <i class={L.thitag} title={L.lis.IconTitle} aria-hidden="true"></i>
+                                    <span class="sr-only">{L.lis.IconTitle}</span>
+                                </span>
+                            </th>
+                            <td>
+	                            <div>
+                                    <div class="FlexCol">
+										<!-- {L.lis.IconLabel} -->
+	                                </div>
+                                    <div class="FlexCol">
+                                        <!-- 
+										Allow for listing click action overrides 
+										-->
+                                        <template if:true={ListingClickActionCodeConditon}>
+                                            <a class={L.lis.StyleClass} id={L.id1} data-actioncode={L.lis.ActionCode} title={L.lis.Title} href="javascript:void(0);" onclick={listingToolClick}>
+                                                {L.lis.Label}
+                                            </a>
+                                        </template>
+                                        <template if:false={ListingClickActionCodeConditon}>
+                                            <a class={L.lis.StyleClass} id={L.id2} data-actioncode={L.lis.ActionCode} href="javascript:void(0);"  title={L.lis.Title} onclick={listingToolClick}>
+                                               {L.lis.Label}
+                                            </a>
+                                        </template>
+                                    </div>
+                                    <div data-id="Compact" class={divcompactclass}>
+                                        {L.lis.Title} 
+                                    </div>
+                                </div>
+                            </td>
+<!-- 
+................................................
+In-line listing tools
+................................................
+-->
+                            <td class="WideListingToolCell">
+                                 <!-- NOTE: Do not display tools if there's a configuration issue... -->
+                                 <span class={L.spanelementerrclass}> 
+                                      <!-- Collapse inline listing tools to an ellipsis button above tool number threshold -->
+                                      <div class={L.classcollapse} > <!--style={L.style1}-->
+                                          <span class={L.spanclassltbm}>
+                                                <i class="fa fa-circle fa-stack-2x" aria-hidden="true"></i>
+                                                <i id={L.iditag}
+                                                    class="fa fa-ellipsis-h fa-stack-1x fa-inverse"
+                                                    data-actioncode="ToggleListingTools" 
+                                                    onclick={listingToolClick}
+                                                    title={L.titleALTs} 
+                                                    aria-hidden="true"></i>
+                                                <span class="sr-only">{advicelabeltools}</span>
+                                          </span>
+                                      </div>
+                                      <div class={L.divIL2}>
+                                        <template for:each={modifiedlistingtoollc} for:item="T">
+                                            <!--
+	                                        We need to show / hide tools based on certain contextual markers:
+	                                        E.g., if already bookmarked, show remove bmk etc...
+	                                        Note: onward toggling of "show next" tool etc covered in click handler: 
+	                                        all we need to do here is choose which tool to show initially...
+	                                        
+	                                        SHOW TOOL IF:
+	                                            Tool is NOT in Group ([NEXT] = 0)
+	                                            OR Row marks tool as current( Row marked with "active" marker for this tool)
+	                                            OR Tool is Group default and no Row current marker ([PREV] = 0 AND Row has no "active" marking at all)
+	                                            OR Tool is Group default in ALL cases ([PREV] = 0 AND tool's active marker = "Any" meta condition)
+	                                            
+	                                        -->
+                                            <span key={T.ltlc.id} class={L.ltlcclasswide} title={T.title} style={L.style1}> <!--class={T.ltlcclasswide} style={T.style}-->
+                                                <i class="fa fa-circle fa-stack-2x" aria-hidden="true"></i>
+                                                <i id={L.idid} class={T.itagiconclass} data-actioncode={T.ltlc.iahelp__ActionCode__c} onclick={listingToolClick} aria-hidden="true"></i>
+                                                <span class="sr-only">
+	                							    {T.ltlc.iahelp__Label__c}
+	            							    </span>
+                                                <span id={L.idid} class="fa-stack-1x IHToolIconContent" data-actioncode={T.ltlc.iahelp__ActionCode__c} onclick={listingToolClick}>
+                                                    {T.ltlc.iahelp__IconContent__c}
+                                                </span>
+                                            </span>
+                                        </template>
+                                      </div> <!-- END of div defining expandable / collapsible tools listing -->
+                                 </span> <!-- END of span defining listing tools area as a whole-->
+                            </td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </template>
+
+<!-- 
+================================================
+LISTING - TILE FORM
+================================================
+-->
+
+        <template if:true={ListingStyleTile}>
+            
+            <template for:each={modifiedcardlistitems} for:item="L" >
+               
+                 <!-- 
+          		Allow for listing click action overrides 
+          		-->
+                  
+                  <template if:true={ListingClickActionCodeConditon}>
+                    <a class={L.classa} title="L.Title" key={L.lis.id} id={L.tid1} href="javascript:void(0);" onclick={listingToolClick}  data-actioncode={L.lis.ActionCode}>
+                        
+                            <c-ihlisttile data-id="HelpListingItem"  tileid={L.tileid1} size={ListingTileSize} id={L.tid1} onclick={listingToolClick}  data-actioncode={L.lis.ActionCode}
+                                summary={L.lis.Label} description={L.lis.Title} icon={L.lis.Icon}  styleclass={L.lis.StyleClass} iconcolour={L.style1} listingrowstyle={ListingRowStyle} style2={style2} style3={style3} style4={style4} stylewhitecard={stylewhitecard} uxtheme={uxtheme} darkmodewhitecol={darkmodeWhitecol}>   
+                            </c-ihlisttile>
+                        
+                    </a>
+                </template>
+                <template if:false={ListingClickActionCodeConditon}>
+                    <a class={L.classa} key={L.lis.id} id={L.tid2} href="javascript:void(0);" onclick={listingToolClick} title="L.Title" data-actioncode={L.lis.ActionCode}>
+                        
+                            <c-ihlisttile data-id="HelpListingItem" tileid={L.tileid2} size={ListingTileSize} id={L.tid1} onclick={listingToolClick} data-actioncode={L.lis.ActionCode}
+                            summary={L.lis.Label} description={L.lis.Title} icon={L.lis.Icon} styleclass={L.lis.StyleClass} iconcolour={L.style1} listingrowstyle={ListingRowStyle} style2={style2} style3={style3} style4={style4} stylewhitecard={stylewhitecard} uxtheme={uxtheme} darkmodewhitecol={darkmodeWhitecol}>
+                            </c-ihlisttile>
+                        
+                    </a>
+                </template>
+
+            </template>
+            
+
+        </template>
+
+<!-- 
+===========================================
+Callout & its working spinner
+===========================================
+ -->
+            <template if:false={SuppressCardUI}>
+                <div data-id="CalloutContainer" id="Coc" class="HelpCalloutContainer slds-hide IsFixed">
+                    <div data-id="IHTipPending" class="IHTipPending IHFullHeight">
+                        <iframe onmouseout={tipMouseOut}
+                                onload={toggleTipBusy}
+                                data-id ="tfrm"
+                                class="IHCalloutIframe"
+                                frameborder="0" scrolling="no" src=""></iframe>
+                     </div>
+                </div>
+            </template>
+
+
+        </div>
+     
+        <span slot="footer" ></span>
+   
+</c-ihcard1>
+</template>

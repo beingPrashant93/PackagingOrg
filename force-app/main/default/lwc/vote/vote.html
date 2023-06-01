@@ -1,0 +1,47 @@
+<template>
+    <template if:true={selectedVote}>
+        <div class="slds-text-body_regular" style="border-top: solid 1px #dddddd; padding-top: 5px;" >
+            <div class="Centred">
+                <div class="slds-text-body_regular slds-m-vertical_small" style="display: inline;">	
+                    <img class={selectedVoteImg} 
+                            src={selectedvoteset.iahelp__ImageClass__c} 
+                            style="margin-right: 10px; height: 16px; width: 16px; border: 0;"></img>
+                            
+                    <span style="color: orange;">
+                        {questionText}
+                    </span>
+
+                </div>
+            </div>	                    		
+        </div>
+        <div class="Centred" style="padding-bottom: 1rem;">
+          <!--  <template if:true={voteoptions}>-->
+                <template for:each={voteWrapperList} for:item="VO">
+                 <div key ={VO.voption.Id} class="VoteOption">
+                    <a  data-name="link_" data-id={VO.voption.Id} data-optionlabel={VO.voption.iahelp__OptionLabel__c}
+                            class='LastVote' 
+                            title={VO.tipvote}                         		                			
+                            onclick={castVote}>		                	                    
+                        <span data-name="badge_" data-id={VO.voption.Id} data-optionlabel={VO.voption.iahelp__OptionLabel__c}
+                                class={VO.styleClass}>
+                            
+                            <span data-name="IconSpan_" data-id={VO.voption.Id} data-optionlabel={VO.voption.iahelp__OptionLabel__c}
+                                    class="slds-icon_container slds-m-right_xx-small" >
+                        
+                                <img data-name="Icon_" data-id={VO.voption.Id} data-optionlabel={VO.voption.iahelp__OptionLabel__c}
+                                    class='' 
+                                    src={VO.voption.iahelp__ImageClass__c} 
+                                    alt={VO.voption.iahelp__OptionLabel__c} 
+                                    style="height: 1.2em;" ></img>
+                        
+                            </span>
+
+                            {VO.voption.iahelp__OptionLabel__c}
+                        </span>		                	
+                    </a> &#32;&nbsp;&#32;
+                </div>
+            </template>
+       <!-- </template>-->
+        </div>
+    </template>  
+</template>

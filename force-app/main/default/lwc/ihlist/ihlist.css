@@ -1,0 +1,78 @@
+/*li {color: #8800ff; background-color: #efe3fc; box-shadow: 0 0 6px #8800ff inset;}*/
+.NoDataMessage 					{width: 100%; height: 100%; font-size: 2em; color: #dddddd; text-align: center; padding: 20px; }
+a {content: '\2729 \0020';}
+
+
+/* ============================================================================*/
+/* Listing tools */
+/* ============================================================================*/
+
+/* List-item: in-line tools */
+.IAToolInline 							{padding-left: 2.2em;}
+
+/* List-item: collapse tools ellipsis */
+.IAToolMaster 							{float: right;}
+
+.WideListingToolCell						{white-space: pre-wrap; min-width: 120px;}
+.WideListingTool							{float: right;}
+
+.Smaller									{font-size: 0.7rem;}
+
+/* Tile mode */
+.TileList 								{display: flex;	flex-direction: row; flex-wrap: wrap; justify-content: center;}
+.ListTile:hover 							{text-decoration: none;}
+
+/* Wide mode */
+.HelpListItemsWide						{display: table;}
+.FlexCol 									{white-space: normal; width: 100%;}
+.ListItemLink 							{padding-top: 0.3em;}
+
+
+/* Narrow mode*/
+.HelpListItemsNarrow 						{margin-top: 0 !important;}
+
+/* List-item: rows */
+.HelpListingItem 							{border-top: 1px solid #d8dde6;}
+
+/* List-item: "Selected" / active (last clicked) record in a list: ONLY 1x row can have this class */
+.SelectedRecord 							{background: #ecebea; box-shadow: #0070d2 4px 0 0 inset;}
+.SelectedRecord * a 						{box-shadow: none;}
+
+
+
+.IsSelected, .IsSelected th 		{border-left: solid 10px green;}
+
+/*.IsSelected	{border-left: solid 10px green;}*/
+
+/* Inline tool fontawesome content in compact / expanded list views */ 
+/*working*/
+.IAToolInline.BookmarkAdd.fa-stack-1x, .IAToolInline.BookmarkRemove.fa-stack-1x {
+    margin-top: -0.2em; color: white;}
+
+.fa-stack-1x {color: white;}
+
+/* ============================================================================*/ 
+/* CALLOUTS */ 
+/* ============================================================================*/  
+.IsFixed 							{position: fixed;}
+.IsAbsolute 						{position: absolute;}
+.HelpCalloutContainer 				{z-index: +1;  height: 75px; left: 0px; width: 100%;}
+/* .IHCalloutIframe					{width: 95%; margin: -0.8rem; height: 70px;} */
+.IHCalloutIframe					{width: 95%; margin: -0.8rem;}
+
+/* Callout pending / waiting spinner */        
+ .IHTipPending 					{background: rgba(255,255,255,0.7) url(/resource/iahelp__IHResources/img/loading.gif) no-repeat center;}
+
+ .BookmarkAdd     					{color: green !important;}
+ .BookmarkRemove     				{color: maroon !important;}
+ .IATool					{cursor: pointer;}
+
+ /* Rotate FontAwesome icons */
+ .fa-rotate-45 					{-webkit-transform: rotate(45deg); -moz-transform: rotate(45deg); -ms-transform: rotate(45deg); -o-transform: rotate(45deg); transform: rotate(45deg);}
+ 
+
+ .IHToolIconContent {margin-top: -.2em;}
+
+ .IHCollateralUpdated {background: none !important; border-left: dashed 3px gold;}
+
+ .ListTilenull {text-decoration: none;}

@@ -1,0 +1,20 @@
+<template>
+    
+    <template for:each={crumbtrails} for:item="Trail" for:index="idxT">
+        <template if:true={rootn}>
+        <nav key={Trail.Id} role="navigation" aria-label="Breadcrumbs" class="IHCrumb">
+            <ol class="slds-breadcrumb slds-list_horizontal slds-wrap">
+                <template for:each={Trail.Crumbs} for:item="Crumb" for:index="idxC">
+                    <li key={Crumb.Id} class="slds-breadcrumb__item slds-text-title_caps"  style={style1}>
+                        <a id={Crumb.Id} data-trailindex={idxT} title={Crumb.Title} style={style1} href="javascript:void(0);" onclick={crumbClick}>
+                            {Crumb.Label}
+                        </a>
+                    </li>
+                </template>
+            </ol>
+        </nav>
+    </template>
+    </template>
+    {diags}
+
+</template>

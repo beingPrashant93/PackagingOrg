@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>50.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Improved Help: Topic Viewer (LWC)</masterLabel>
+    <targets>
+        <target>lightning__AppPage</target>
+        <target>lightning__RecordPage</target>
+        <target>lightning__HomePage</target>
+        <target>lightning__FlowScreen</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage,lightning__AppPage,lightning__HomePage,lightning__FlowScreen">
+            <property name="height" label="Viewer Component Height" description="Display height for this component (pixels). Enter -1 to set height to 100% (i.e., the height required to avoid scrollbars)." default="-1" type="String" required="true"/>
+            <property name="suppressheader" label="Suppress Header" description="Check this box to hide the header area of this component." default="false" type="Boolean" required="false"/>
+            <property name="suppressfooter" label="Suppress Footer" description="Check this box to hide the footer / diagnostics area of this component." default="false" type="Boolean" required="false"/>
+            <property name="nodatamessage" label="'No Data' Advice Label" description="A message to display on this component when no data is present." default="[No Data]" type="String" required="false"/>
+            <property name="helprecordid" label="Default Help Topic" description="Id of the Help Topic to display on loading. Leave blank to show the Org's default Help Topic as defined in Global Settings. Enter '[None]' to start with no Topic, regardless of the Org's default." default="" type="String" required="false"/>
+            <property name="toolcontext" label="Tool Context" description="Defines the set of clickables (ellipsis menu items, listing tools, drop downs etc) to present on this component. Enter a value from the 'Tool Context' pick list field of the Configuration Item object. Enter '[DEFAULT]' to accept the default toolset for the component configuration being requested." default="[DEFAULT]" type="String" required="true"/>
+            <property name="LayoutInfoPrecedence" label="Topic Layout: Source" description="Where custom layouts are used, defines which layout definition (Topic's, as specified by its Full Template, 
+								or Component's, as specified here) takes precedence." datasource="Component Definition,Help Topic" default="Help Topic" type="String" required="false"/>
+            <property name="LayoutInfo" label="Topic Layout: Component Definition" description="Instructions for customising the layout of Help Topic data when presented via this component: contact Improved Apps Support for details." default="" type="String" required="false"/>
+            <property name="uxtheme" label="Colour Scheme" description="Enter the name of a styling theme to override the global default Help colour scheme (available themes typically include 'Light' and 'Dark'). Leave blank to accept default theme." default="Light" type="String" required="false"/>
+            <property name="backgroundstyle" label="Background Style" description="Controls whether to adopt brand background colour for the component as a whole."  datasource="Coloured,Transparent" default="Coloured" type="String" required="true"/>     
+            <property name="componentid" label="Component ID" description="A reference name for this component, used in conjunction with the 'Listens To' parameter." default="" type="String" required="false"/>
+            <property name="listensto" label="Listens To" description="Comma-separated list of the component(s) that this component should 'listen' to (respond to events from). To listen to the Quick Access Menu, enter 'theQAM'." default="" type="String" required="false"/>
+            <property name="cachedrecordsource" label="Cache Source" description="The component, among those being listened to, that this component can use as a source of 'cached' Topic records. Leave blank to seek Topic data from Salesforce server-side as users select topics." default="" type="String" required="false"/>
+           
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

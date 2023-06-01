@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>50.0</apiVersion>
+    <isExposed>true</isExposed>
+
+    <targets>
+        <target>lightning__AppPage</target>
+        <target>lightning__RecordPage</target>
+        <target>lightning__FlowScreen</target>
+    </targets>
+
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage,lightning__AppPage,lightning__FlowScreen">
+
+            <property name="height" 
+	                label="Listing Component Height" 
+	                description="Display height for this component (pixels). Enter -1 to set height to 100% (i.e., the height required to avoid scrollbars)." 
+	                default="400"
+					type="String"
+                    required="true" />	
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

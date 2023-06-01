@@ -1,0 +1,47 @@
+<template>
+
+    <div class="slds-grid slds-wrap">	
+        <!-- 
+        ================================================
+        No data message - if root NOT set
+        ================================================
+        -->	
+                <template if:true={noData}>
+                    <div class="NoDataMessage">
+                        {NoDataMessage}
+                    </div>
+                </template>
+            
+        <!-- 
+        ================================================
+        Tree - render only when root set
+        ================================================
+        -->
+            
+                <div data-id="UtilTreeContainer" class={treeStyleClass}>
+                   <template if:true={noRootTree}>
+                        <c-ihtree data-id="UtilTree" uxtheme={uxtheme} backgroundstyle={backgroundstyle} height ={Height} componentid={treeComponentId} listensto={treeListensTo}
+                            suppressheader ={SuppressHeaders} suppressfooter ={SuppressFooters} nodatamessage ={NoDataMessage} 
+                            ddallowed ={TreeDDAllowed} treetoolcontext ={ToolContextTree} rootnode ={RootNodeTree} suppresslistingtools ={TreeSuppressListingTools} nodeiconstyle ={TreeNodeIconStyle}
+                            maxlistingtools ={TreeMaxListingTools} displaydensity ={TreeDisplayDensity} maxdepth ={TreeMaxDepth} nodeprovider={TreeNodeProvider}>
+                        </c-ihtree>  
+                   </template>
+                </div>   
+            
+        <!-- 
+        ================================================
+        Detail - render only when root set
+        ================================================
+        -->        
+                <div data-id="UtilTopicContainer" class={detailStyleClass}>
+                    
+                    <template if:true={noRootTopic}>      
+                        <c-ihdetail data-id="UtilTopic" uxtheme={uxtheme} backgroundstyle={backgroundstyle} componentid={topicComponentId} listensto={topicListensTo} height={Height}  
+                            suppressheader={SuppressHeaders} suppressfooter={SuppressFooters} nodatamessage={NoDataMessage} toolcontext={ToolContextTopic}
+                            helprecordid={RootNodeTopic} cachedrecordsource={treeComponentId}>			
+                        </c-ihdetail>
+                    </template>           
+                </div>
+            
+            </div> 
+</template>

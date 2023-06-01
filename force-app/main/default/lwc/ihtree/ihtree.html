@@ -1,0 +1,164 @@
+<template>
+      <c-ihcard1  footertools={footertools} title={title} cardsuppressfooter={suppressfooter} cardsuppressheader={suppressheader} 
+      diags={diags} height={height} extendedcapabilities={extendedcapabilities} delimiter={delimiter} globalsettings={globalsettings} 
+	  advicelabeltools={advicelabeltools} ihcardtype={ihcardtype} cardrootnode={rootnode} test={test} cardlistensto={listensto}
+	  internationalisations={internationalisations} cardcomponentid={componentid} isbusy={isbusy} listingtools={listingtools} modifiedlistingtool={modifiedlistingtool}
+	  ellipsistools={ellipsistools} modifiedellipsistools={modifiedellipsistools} headertoolsupportcontrols={headertoolsupportcontrols} modifiedheadertoolsupportcontrols={modifiedheadertoolsupportcontrols}
+	   modifiedheadertools={modifiedheadertools} headertools={headertools} bodytools={bodytools} modifiedbodytools={modifiedbodytools}
+	  dropdowntools={dropdowntools} cardlistitems={cardlistitems} toolcontext={toolcontext} helprecordid={HelpRecordId} helpedelements={helpedelements} helptopics={helptopics} carduxtheme={uxtheme} cardbackgroundstyle={backgroundstyle} uxbodybackgroundcolour={uxbodybackgroundcolour} 
+	  uxthemecolour1={uxthemecolour1} uxthemecolour2={uxthemecolour2} uxthemecolour3={uxthemecolour3} uxmenubackgroundcolour={uxmenubackgroundcolour}>
+<!-- 
+================================================
+RE-ROOTING DROP ZONE:
+NB: this requires page owner consent (DDAllowed) but
+does not require specialised node provider, as all have a root
+================================================
+-->	
+	<template if:true={searchlistactivated}>
+		<div class={listmode}>
+			<c-ihlist data-id="SearchList" cardconfig1="TreeContent" helprecordid={rootnode} height={height} componentid={componentid}
+				toolcontext="CardTreeSearchList" listingclickactioncode="BackToTreeFromSearchList" outercontainerclass="ChildUI" treemaxdepth={maxdepth}>
+			</c-ihlist>
+		</div>
+	</template>
+	<div class={treemode}>
+		<div data-ddid="DropTargetReRoot" draggable="true" class={dropTarget}
+					ondragover={doDragOver} 
+					ondragleave={doDragLeave}
+					ondrop={doDrop}
+
+					title={AdviceLabelDropHereToSetRoot} >
+			
+				{AdviceLabelDropHereToSetRoot}
+			</div>
+	<!-- ================================================
+			NO DATA MESSAGE (IF ZERO NODES ARE AVAILABLE)
+	================================================
+			-->
+					<div class={nodatamsgclass}>
+							
+						{nodatamessage}
+					</div>
+					
+<!-- 
+================================================
+INFORMATION (Crumbs) ABOUT "PEER" TREES - non print only
+================================================
+-->
+<template if:true={noprintclass}>
+	<div data-id="PopoverPeers" id="PopoverPeerList" class="slds-hide PopoverPeerList">
+	<section class="slds-popover PopoverPeerCrumb" role="dialog" aria-describedby="dvPeerLinks" aria-label="">
+		<button class="slds-button slds-button_icon slds-button_icon-small slds-float_right slds-popover__close slds-button_icon" 
+							onclick={closeCrumb} 
+							title={ButtonCancel}>
+						<i class="fa fa-times" aria-hidden="true"></i>
+						<span class="slds-assistive-text">{ButtonCancel}</span>
+					</button>
+
+					<div class="slds-popover__body" id="dvPeerLinks">
+						<c-ihcrumb data-id="Crumbs" componentid='Crumbs' crumbcolour={globalStyle}>
+						</c-ihcrumb>
+					</div>
+	</section>	
+	</div>
+</template>
+
+		<!-- 
+	================================================
+	PRINTING OPTIONS and FURNITURE - print only
+	================================================
+	-->					
+			<template if:true={printview}>
+	
+				<div class='ModeSpecificTools slds-theme_shade PrintControls FixedMode'>
+					<ul class="slds-accordion">		
+						<li class="slds-accordion__list-item">
+
+	<!-- 
+	................................................
+	Print settings - Accordion label and twisty
+	................................................
+	-->			      		
+							<section data-id="Settings_Section" class="slds-accordion__section">  
+								<div id="Settings_Summary" class="slds-accordion__summary">
+					
+									<h3 class="slds-text-heading_small slds-accordion__summary-heading">
+										<lightning-button type="button"
+												aria-controls="accordion-details-01" 
+												class="slds-button slds-button_reset slds-accordion__summary-action"
+												>
+													
+											<lightning-icon aura:id="Settings_Twisty" class="slds-button__icon" size="xx-small" icon-name="utility:chevronright"></lightning-icon>
+														
+											<span class="slds-truncate" title="">
+												{ToolLabelGlobalSettings}
+											</span>
+										</lightning-button>
+									</h3>
+												
+								</div>
+										
+											
+	<!-- 
+	................................................
+	Print settings controls
+	................................................
+	-->			      		
+								<div aria-hidden="false" class="slds-accordion__content IHToolPanel" id="accordion-details-01">
+					
+									<div class="slds-form"> 
+										<div class="slds-grid slds-gutters">
+											<div class="slds-col slds-p-horizontal_medium">
+												<lightning-input label={FieldLabelCustomStyle} type="text" value={PrintStyle} ></lightning-input>
+											</div>
+											
+											<div class="slds-col slds-p-horizontal_medium">
+												<lightning-input label={FieldLabelTreePrintIndentationLevel} type="text" value={levelindentation} ></lightning-input>
+											</div>									
+
+											<div class="slds-col slds-p-horizontal_medium slds-align-bottom">
+												<lightning-input label={TipGenericOK} variant="brand" ></lightning-input>
+											</div>
+										</div>
+									</div>
+								
+								</div>	
+								
+							</section>
+						</li>
+					</ul>	
+				</div>
+				
+
+				<!-- Shim to force data form NOT to underlie (floating) accordion tools when in affected modes -->			
+				<div class="ModeSpecificToolsPrint" ></div>
+				
+	<!-- 
+	................................................
+	Print page header / footer - DISABLED FOR THIS RELEASE VIA CSS
+	................................................
+	-->    			
+				<div class="PrintHeader">
+					{PrintHeader}
+				</div>			
+				
+				<div class="PrintFooter">
+					{PrintFooter}
+					<br/>
+					{ProductPoweredBy}
+				</div>			
+			
+			</template>  
+		<div style="max-width: 100%;">
+				<template for:each={Nodes} for:item="n" for:index="indexvar">
+				<c-ihtreenodes componentid={componentid} supportsorder={SupportsOrder} treecontrolprintview={printview} onpassthroughs={handlepassthroughs} node={n}  expanded=true nodeiconstyle={nodeiconstyle} maxlistingtools={maxlistingtools} 
+				displaydensity={displaydensity} listingtools={modifiedlistingtool}
+				suppresslistingtools={suppresslistingtools} delimiter={delimiter} key={n.Id} listitems={cardlistitems} nodeddallowed={ddallowed}
+				globalsettings={globalsettings} rootnode={rootnode} treecontrol={treecontext} treecontrollevelindentation={levelindentation}
+				advicelabeldroptosort = {advicelabeldroptosort} nodeexpandertip={tipbuttoncompactview} advicelabeltools = {advicelabeltools}></c-ihtreenodes>
+				</template>   
+			</div>
+		<span slot="footer" ></span>
+	</div> 
+    </c-ihcard1>
+</template>

@@ -1,0 +1,80 @@
+<template>
+    <div> This component is under construction. Title - {Title}</div>  
+    <div role="dialog" tabindex="-1" aria-labelledby="modalTitle" class={parentDivClass}>
+        <div class="slds-modal__container">
+
+<!-- 
+================================================
+Header and dialogue close button
+================================================
+-->
+			<div class={showHeaderClass} >
+				<div onclick={requestClose} class="slds-button slds-modal__close slds-button_icon-inverse" title={TipButtonClose}>
+    
+                    <span class="fa-stack fa-lg IATool">
+                        <i class="fa fa-times fa-stack-1x" aria-hidden="true"></i>
+                    </span>					
+    
+					<span class="slds-assistive-text"></span>
+				</div>
+        
+                <h2 id="modalTitle" class="slds-text-heading_medium">
+                    {Title}                
+                </h2>
+            </div>
+            
+<!-- 
+================================================
+Dialogue body - iframe or component content
+================================================
+-->
+            <div data-id="DlgContainer" class="slds-modal__content IHDlgContainer">
+
+				<div data-id="IHDlgPending" style={IHDlgPendingStyle} class='IHTipPending'>
+
+					<template if:true={frameTypeClass}>  
+						<iframe data-id="dfrm" onload={hideDlgSpinner} src={FrameSource}
+								frameborder="0" scrolling={scrollingClass} 
+								style={iframeStyle}>
+						</iframe>                   
+					</template> 
+                    <template if:true={LUXClass} > 
+                        <div data-id="ddiv" style="height: 100%; width: 100%">		    	
+                            <template if:false={alertClass}> 	    		
+                                <c-ihcomponentgenerator data-id="ihcomp" >	
+                                            	
+                                </c-ihcomponentgenerator>	
+                            </template>	
+                            <template if:true={alertClass}> 	
+                                <c-ihalert data-id="ihalertcomp" height={heightd} alerttitle={titled} message={messaged} image={imaged} toolcontext={toolcontextd} colstyle={styled}>	
+                                       	
+                                </c-ihalert>		
+                            </template>	    	 
+                        </div>
+                    </template>  
+                </div>
+            </div>
+
+<!-- 
+================================================
+Optional footer, including footer tool buttons
+================================================
+-->
+            <div class={showFooterClass}>
+                <template for:each={FooterTools} for:item="T">
+                    {T.iahelp__Label__c}
+					<lightning-button  key={T.Id} class="slds-button slds-button_neutral" title={T.iahelp__TipText__c}> {T.iahelp__Label__c} </lightning-button>
+                </template>
+            </div>
+            
+        </div>
+    </div>
+
+<!-- 
+================================================
+Modal background
+================================================
+-->
+    <div class="IHDialogueModalBackground slds-backdrop slds-backdrop_open"></div>        
+    
+</template>
